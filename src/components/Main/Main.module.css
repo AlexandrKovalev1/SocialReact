@@ -1,0 +1,8 @@
+.main {
+    grid-area: main;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 360px 1fr 7fr;
+    gap: 10px;
+    
+}

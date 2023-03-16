@@ -1,5 +1,6 @@
-.header {
-    grid-area: header;
+nav {
+    grid-area: nav;
+    min-height: 90vh;
     border-radius: 15px;
     background-color: rgba(0, 0, 255, 0.482);
 }

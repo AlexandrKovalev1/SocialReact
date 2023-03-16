@@ -1,16 +1,16 @@
 import './App.css';
 import Header from './components/Header/Header';
-import Profile from './components/Profile/Profile';
-import Nav from './components/Nav/Nav';
+import Nav from './components/Navigation/Nav';
+import Main from './components/Main/Main';
 
 
 const App = () => {
   return (
-    <div className='body'>
-      <div className='app-wrapper'>
+    <div className='app__wrapper'>
+      <div className='container'>
         <Header />
         <Nav />
-        <Profile />
+        <Main />
       </div>
     </div>
   );
