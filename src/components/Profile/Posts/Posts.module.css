@@ -1,0 +1,10 @@
+.posts:first-child {
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.posts:last-child {
+    border-radius: 15px;
+    overflow: hidden;
+}
+

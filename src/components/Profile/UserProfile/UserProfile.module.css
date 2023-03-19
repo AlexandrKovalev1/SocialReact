@@ -8,15 +8,15 @@
     border-radius: 15px 15px 0 0;
     background-image: url('./headerBackground.jpg');
     background-position: center;
-    background-size:cover;
+    background-size: cover;
     background-repeat: no-repeat;
     opacity: 0.9;
-    
+
 }
 
 .user__avatar {
     position: absolute;
-    top:25%;
+    top: 25%;
     left: 3%;
 
 }
@@ -31,6 +31,33 @@
 .user__info {
     width: 100%;
     height: 50%;
-    border-radius:0 0 15px 15px;
-    background-color: rgba(236, 226, 226, 0.502);
+    border-radius: 0 0 15px 15px;
+    background-color: #b1b7c3c2;
+}
+
+.user__about {
+    position: absolute;
+    left: 33%;
+    bottom: 15%;
+    display: flex;
+    flex-direction: column;
+}
+
+.user__name {
+    font-size: 20px;
+    font-weight: 700;
+    font-style: oblique;
+
+}
+
+.from {
+    padding-top: 10px;
+    letter-spacing: 1.5px;
+}
+
+@media (max-width: 850px) {
+    .user__avatar img {
+        width: 150px;
+        height: 150px;
+    }
 }

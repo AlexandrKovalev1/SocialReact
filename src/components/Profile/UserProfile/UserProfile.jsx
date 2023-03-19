@@ -8,7 +8,13 @@ const UserProfile = () => {
       <div className={classes.user__avatar}>
         <img src="https://stihi.ru/pics/2015/02/10/1261.jpg" alt="avatar" />
       </div>
-      <div className={classes.user__info}></div>
+      <div className={classes.user__info}>
+        <div className={classes.user__about}>
+          <span className={classes.user__name}>Alexandr Kovalev</span>
+          <small>Статус ...........</small>
+          <span className={classes.from}>☂ Saint-Petersburg</span>
+        </div>
+      </div>
     </section>
   )
 }

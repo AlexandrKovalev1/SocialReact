@@ -1,17 +1,17 @@
-import classes from './Main.module.css';
+import classes from './Profile.module.css';
 import NewPost from './NewPost/NewPost';
 import Posts from './Posts/Posts';
 import UserProfile from './UserProfile/UserProfile'
 
 
-const Main = () => {
+const Profile = () => {
     return (
-        <main className={classes.main}>
+        <div className={classes.main}>
             <UserProfile />
             <NewPost />
             <Posts />
-        </main>
+        </div>
     )
 }
 
-export default Main;
+export default Profile;

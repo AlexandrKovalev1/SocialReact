@@ -1,6 +1,41 @@
-nav {
+.navigation {
     grid-area: nav;
     min-height: 90vh;
+}
+
+.list {
+    padding-top: 100px;
+    padding-inline-start: 30px;
+    list-style: none;
+}
+
+.list__item {
+    font-size: 15px;
+    font-style: italic;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+    text-shadow: 1px 1px 1px #f1f0f0;
+}
+
+.list__item:hover {
+    border-radius: 20px;
+    background-color: #30292878;
+}
+
+.list__item:not(:last-child) {
+margin-bottom: 60px;
+}
+
+nav:hover {
+    padding-left: 15px;
     border-radius: 15px;
-    background-color: rgba(0, 0, 255, 0.482);
+    background-color: rgba(196, 193, 193, 0.189);
+    background-size: cover;
+}
+
+@media (max-width: 850px) {
+    .navigation {
+        display: none;
+    }
 }

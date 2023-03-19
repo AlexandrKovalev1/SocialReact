@@ -1,18 +1,36 @@
+/* * {
+  box-sizing: border-box;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  color: #302928;
+} */
+
 .app__wrapper {
+  position: relative;
   background-image: url('./background.jpeg');
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
 }
 
+.app__wrapper__content {
+  grid-area: main;
+}
+
 .container {
   margin: 0 auto;
   max-width: 1200px;
   display: grid;
-  grid-template-rows: 60px 1fr;
-  grid-template-columns: 2.5fr 10fr;
+  grid-template-rows: 80px 1fr;
+  grid-template-columns: 2fr 10fr;
   grid-template-areas:
     'header header'
     'nav main';
   gap: 15px;
+}
+
+@media (max-width: 850px) {
+  .container {
+    grid-template-rows: 80px 1fr;
+    grid-template-columns: 1px 10fr 1px;
+  }
 }

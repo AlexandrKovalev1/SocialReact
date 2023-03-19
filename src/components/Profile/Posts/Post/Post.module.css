@@ -1,0 +1,55 @@
+.container {
+    display: grid;
+    grid-template-rows: 3fr 1.5fr;
+    grid-template-columns: 1.5fr 10fr;
+    grid-template-areas:
+        'ava conten '
+        'resp resp ';
+    padding: 25px 20px 0 20px;
+    background-color: #b1b7c3c2;
+}
+
+.avatar {
+    grid-area: ava;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+}
+
+.avatar img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: azure;
+}
+
+.content {
+    grid-area: conten;
+    display: grid;
+    align-items: center;
+    background-color: #dae4ee;
+    border-radius: 50px;
+}
+
+.post__text {
+    padding: 0 40px 0 40px;
+}
+
+.response {
+    grid-area: resp;
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px 40px 0 0;
+}
+
+.response__like img,
+.response__dizlike img {
+    width: 30px;
+    height: 30px;
+
+}
+
+.response__count {
+    padding: 0 10px 0 10px;
+}

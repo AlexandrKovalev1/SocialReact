@@ -2,25 +2,25 @@ import classes from './Nav.module.css';
 
 const Nav = () => {
     return (
-        <nav className={classes.navigation}>
+        <nav className={classes.nav__header}>
             <ul className={classes.list}>
                 <li className={classes.list__item}>
-                    <a href='/profile'>Профиль</a>
+                    <a>Профиль</a>
                 </li>
                 <li className={classes.list__item}>
-                    <a href='/dialogs'>Сообщения</a>
+                    <a>Сообщения</a>
                 </li>
                 <li className={classes.list__item}>
-                    <a href='/photo'>Фото</a>
+                    <a>Фото</a>
                 </li>
                 <li className={classes.list__item}>
-                    <a href='/musik'>Музыка</a>
+                    <a>Музыка</a>
                 </li>
                 <li className={classes.list__item}>
-                    <a href='/news'>Новости</a>
+                    <a>Новости</a>
                 </li>
                 <li className={classes.list__item}>
-                    <a href='setting'>Настройки</a>
+                    <a>Настройки</a>
                 </li>
             </ul>
         </nav>
