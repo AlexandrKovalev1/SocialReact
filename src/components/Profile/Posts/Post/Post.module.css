@@ -1,18 +1,17 @@
 .container {
     display: grid;
-    grid-template-rows: 3fr 1.5fr;
+    grid-template-rows: 3fr 50px;
     grid-template-columns: 1.5fr 10fr;
     grid-template-areas:
         'ava conten '
         'resp resp ';
     padding: 25px 20px 0 20px;
-    background-color: #b1b7c3c2;
 }
 
 .avatar {
     grid-area: ava;
     display: grid;
-    align-items: center;
+    /* align-items: center; */
     justify-content: center;
 }
 
@@ -22,6 +21,7 @@
     border-radius: 50%;
     overflow: hidden;
     background-color: azure;
+    border: 3px solid #4c8474;
 }
 
 .content {
@@ -30,6 +30,8 @@
     align-items: center;
     background-color: #dae4ee;
     border-radius: 50px;
+    border-top: 2px solid #4c8474;
+    border-bottom: 2px solid #4c8474;
 }
 
 .post__text {

@@ -1,0 +1,6 @@
+.messages__list {
+    margin-bottom: 0;
+    list-style: none;
+    padding-right: 30px;
+    overflow-y: auto;
+}

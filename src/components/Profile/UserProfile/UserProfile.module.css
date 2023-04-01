@@ -25,14 +25,14 @@
     width: 210px;
     height: 210px;
     border-radius: 50%;
-    border: 1px solid black;
+    border: 4px solid #4c8474;
 }
 
 .user__info {
     width: 100%;
     height: 50%;
     border-radius: 0 0 15px 15px;
-    background-color: #b1b7c3c2;
+    background-color: #ffffff;
 }
 
 .user__about {

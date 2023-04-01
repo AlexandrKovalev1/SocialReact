@@ -1,0 +1,122 @@
+.content__wrapper {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    gap: 10px;
+    height: 83vh;
+    padding-top: 10px;
+}
+
+.dialogs,
+.messages {
+    border-radius: 15px;
+    background: #ffffff;
+}
+
+.dialogs__list {
+    padding-inline-start: 0;
+    list-style: none;
+}
+
+.dialogs__list li {
+    font-size: 18px;
+    font-style: italic;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+
+}
+
+.messages {
+    display: grid;
+    overflow: hidden;
+    grid-template-areas:
+        'info'
+        'messages'
+        'new__message';
+    padding: 10px 50px 0 50px;
+}
+
+.conversation__info {
+    display: grid;
+    grid-area: info;
+    overflow: hidden;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background: #ffffff;
+    border-bottom: 1px solid green;
+}
+
+.companion {
+    display: grid;
+    justify-content: start;
+    grid-template-columns: 1fr 3fr;
+}
+
+.companion__avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid green;
+}
+
+.companion__info {
+    display: grid;
+    justify-content: left;
+}
+
+.companion__name {
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+}
+
+.delete {
+    display: grid;
+    justify-content: end;
+    align-items: center;
+    color: rgb(239, 68, 68);
+}
+
+.text__area__wrapper {
+    position: relative;
+    padding: 20px 0;
+}
+
+.new__message {
+    width: 100%;
+    margin: 0;
+    padding: 10px 40px 10px 40px;
+    font-size: 20px;
+    overflow: hidden;
+    border: 1px solid #4c8474;
+    border-left: none;
+    border-right: none;
+    border-radius: 15px;
+    box-sizing: border-box;
+    resize: none;
+    background-color: #ffffff;
+}
+
+.button {
+    position: absolute;
+    right: 20px;
+    top: 45%;
+    border: none;
+    background: none;
+    cursor: pointer;
+
+}
+
+
+
+.button:hover {
+    color: #4c8474;
+    font-weight: bold;
+    text-shadow: 3px 3px 3px #4c8474;
+}
+
+@media (max-width: 850px) {
+    .content__wrapper {
+        grid-template-columns: 1fr 8fr;
+    }
+}

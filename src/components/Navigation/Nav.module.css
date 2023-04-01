@@ -14,8 +14,16 @@
     font-style: italic;
     font-weight: 600;
     letter-spacing: 1.5px;
-    cursor: pointer;
     text-shadow: 1px 1px 1px #f1f0f0;
+}
+
+.list__item a {
+    text-decoration: none;
+    color:black;
+}
+.list__item .active {
+    font-weight: 800;
+    text-shadow: 3px 3px 3px #30292878;
 }
 
 .list__item:hover {
@@ -27,7 +35,7 @@
 margin-bottom: 60px;
 }
 
-nav:hover {
+.navigation:hover {
     padding-left: 15px;
     border-radius: 15px;
     background-color: rgba(196, 193, 193, 0.189);

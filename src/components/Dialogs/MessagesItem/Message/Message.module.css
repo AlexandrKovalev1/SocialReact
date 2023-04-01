@@ -1,0 +1,109 @@
+.messageItem,
+.my__messageItem {
+    display: grid;
+    scroll-snap-align: start;
+    grid-template-rows: 1fr;
+    gap: 50px;
+}
+
+.messageItem:not(:last-child),
+.my__messageItem:not(:last-child) {
+    margin-bottom: 30px;
+}
+
+.my__messageItem {
+    grid-template-areas:
+        'avatar message';
+    grid-template-columns: 60px 1fr;
+    color: #ffffff;
+}
+
+.messageItem {
+    grid-template-areas:
+        'message avatar';
+    grid-template-columns: 1fr 40px;
+}
+
+.avatar {
+    display: grid;
+    grid-area: avatar;
+    justify-content: center;
+    align-items: center;
+}
+
+.avatar__img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 2px solid green;
+}
+
+
+.message,
+.my__message {
+    position: relative;
+    grid-area: message;
+    padding: 20px;
+    border-radius: 15px;
+    border: 1px solid #4c8474;
+}
+
+.message {
+    background: #ffffff;
+}
+
+.my__message {
+    background: #4c8474;
+}
+
+.message:after,
+.message:before,
+.my__message:after,
+.my__message:before {
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+
+.message:after,
+.message:before {
+    left: 100%;
+    top: 50%;
+}
+
+.my__message:after,
+.my__message:before {
+    right: 100%;
+    top: 50%;
+}
+
+.message:after {
+    border-left-color: #ffffff;
+}
+
+.message:before {
+    border-left-color: #4c8474;
+}
+
+.my__message:after {
+    border-right-color:#4c8474;
+}
+
+.my__message:before {
+    border-right-color: #4c8474;
+}
+
+.message:after,
+.my__message:after {
+    border-width: 18px;
+    margin-top: -18px;
+}
+
+.message:before,
+.my__message:before {
+    border-width: 19px;
+    margin-top: -19px;
+}
