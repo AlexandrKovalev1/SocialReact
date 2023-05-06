@@ -12,7 +12,7 @@ const Message = (props) => {
                 ? classes.my__message
                 : classes.message}>
                 <p className={classes.text}>
-                    {props.text}
+                    {props.message}
                 </p>
             </div>
         </li>

@@ -14,7 +14,6 @@
 
 .dialogs__list {
     padding-inline-start: 0;
-    list-style: none;
 }
 
 .dialogs__list li {
@@ -28,6 +27,7 @@
 .messages {
     display: grid;
     overflow: hidden;
+    grid-template-rows: 80px 1fr;
     grid-template-areas:
         'info'
         'messages'

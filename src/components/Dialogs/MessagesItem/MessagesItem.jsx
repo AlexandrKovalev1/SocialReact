@@ -4,11 +4,17 @@ import Message from './Message/Message';
 
 const MessagesItem = (props) => {
 
-    let messagesElements = props.messages.map(item => <Message text={item.message} id={item.id} avatar={item.avatar} />).reverse();
+    let messageItem = props.messages.map(message =>
+        <Message
+            id={message.id}
+            message={message.textMessage}
+            avatar={message.avatar}
+        />
+    ).reverse()
 
     return (
         <ul className={classes.messages__list}>
-            {messagesElements}
+            {messageItem}
         </ul>
     )
 }

@@ -1,21 +1,25 @@
 import classes from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogItem';
 import MessagesItem from './MessagesItem/MessagesItem';
-import { updateNewMessageTextActionCreator, sendMessageActionCreator } from '../../redux/state'
 
 const Dialogs = (props) => {
 
-    let dilogElements = props.dialogState.companions.map(dialog => <DialogItem name={dialog.name} id={dialog.id} avatar={dialog.avatar} />);
+    let dialogsItem = props.companions.map(companion =>
+        <DialogItem
+            key={companion.id}
+            id={companion.id}
+            name={companion.name}
+            avatar={companion.avatar}
+        />
+    )
 
-    let editTextField = (event) => {
+    const onChangeMessageBody = (event) => {
         let text = event.target.value;
-        let action = updateNewMessageTextActionCreator(text);
-        props.dispatch(action);
+        props.editMessageBody(text);
     }
 
-    let addMessage = () => {
-        let action = sendMessageActionCreator();
-        props.dispatch(action);
+    const sendMessage = () => {
+        props.sendMessage();
     }
 
 
@@ -25,7 +29,7 @@ const Dialogs = (props) => {
             <div className={classes.content__wrapper}>
                 <div className={classes.dialogs}>
                     <ul className={classes.dialogs__list}>
-                        {dilogElements}
+                        {dialogsItem}
                     </ul>
                 </div>
                 <div className={classes.messages}>
@@ -41,15 +45,15 @@ const Dialogs = (props) => {
                             <span>Удалить переписку</span>
                         </div>
                     </div>
-                    <MessagesItem messages={props.dialogState.messages} />
+                    <MessagesItem messages={props.messages} />
                     <div className={classes.text__field}>
                         <div className={classes.text__area__wrapper}>
                             <textarea
-                                value={props.dialogState.newMessageText}
-                                onChange={editTextField}
                                 className={classes.new__message}
+                                value={props.newMessageText}
+                                onChange={onChangeMessageBody}
                             />
-                            <button className={classes.button} onClick={addMessage}>Отправить</button>
+                            <button className={classes.button} onClick={sendMessage}>Отправить</button>
                         </div>
                     </div>
                 </div>

@@ -10,7 +10,7 @@
 }
 
 .list__item {
-    font-size: 15px;
+    font-size: 17px;
     font-style: italic;
     font-weight: 600;
     letter-spacing: 1.5px;
@@ -23,7 +23,8 @@
 }
 .list__item .active {
     font-weight: 800;
-    text-shadow: 3px 3px 3px #30292878;
+    text-shadow: 1px 1px 2px #35c59c, 0 0 1em #35c59c, 0 0 0.2em #35c59c;
+    /* text-shadow: 3px 3px 3px #30292878; */
 }
 
 .list__item:hover {

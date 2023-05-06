@@ -25,7 +25,8 @@
     width: 210px;
     height: 210px;
     border-radius: 50%;
-    border: 4px solid #4c8474;
+    border: 3px solid #ffffff;
+    outline: 3px solid #4c8474;
 }
 
 .user__info {

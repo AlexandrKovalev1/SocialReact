@@ -3,16 +3,20 @@ import Post from './Post/Post';
 
 const Posts = (props) => {
 
-    let postElements = props.posts.map(post =>
-        <Post text={post.text}
+    let postItem = props.posts.map(post =>
+        <Post
+            key={post.id}
+            id={post.id}
+            text={post.text}
+            avatar={post.avatar}
             likesCount={post.likesCount}
             dizlikesCount={post.dizlikesCount}
-            avatar={post.avatar} />)
-        .reverse();
+        />
+    ).reverse()
 
     return (
         <section className={classes.posts}>
-            {postElements}
+            {postItem}
         </section>
     )
 }
