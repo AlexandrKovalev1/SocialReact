@@ -1,0 +1,26 @@
+.list__item {
+    font-size: 17px;
+    font-style: italic;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-shadow: 1px 1px 1px #f1f0f0;
+}
+
+.list__item a {
+    text-decoration: none;
+    color:black;
+}
+.list__item .active {
+    font-weight: 800;
+    text-shadow: 1px 1px 2px #35c59c, 0 0 1em #35c59c, 0 0 0.2em #35c59c;
+    /* text-shadow: 3px 3px 3px #30292878; */
+}
+
+.list__item:hover {
+    border-radius: 20px;
+    background-color: #30292878;
+}
+
+.list__item:not(:last-child) {
+margin-bottom: 60px;
+}

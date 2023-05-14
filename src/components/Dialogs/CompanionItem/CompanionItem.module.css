@@ -28,6 +28,15 @@
 
 }
 
+.online {
+    color: green;
+    font-weight: 900;
+}
+
+.offline {
+    color: red;
+}
+
 @media (max-width:850px) {
     .companion__info {
         display: none;

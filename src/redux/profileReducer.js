@@ -27,7 +27,7 @@ const profileReducer = (state = initialState, action) => {
 
   if (action.type === ADD_POST) {
     let newPost = {
-      id: 3,
+      id: state.posts.length + 1,
       text: state.newPostText,
       likesCount: Math.round(Math.random() * 10000),
       dizlikesCount: Math.round(Math.random() * 10000),

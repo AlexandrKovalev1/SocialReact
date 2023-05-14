@@ -1,15 +1,16 @@
 import classes from './Dialogs.module.css';
-import DialogItem from './DialogItem/DialogItem';
+import CompanionItem from './CompanionItem/CompanionItem';
 import MessagesItem from './MessagesItem/MessagesItem';
 
 const Dialogs = (props) => {
 
     let dialogsItem = props.companions.map(companion =>
-        <DialogItem
+        <CompanionItem
             key={companion.id}
             id={companion.id}
             name={companion.name}
             avatar={companion.avatar}
+            status = {companion.status}
         />
     )
 

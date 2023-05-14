@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
-import classes from './DialogItem.module.css'
+import classes from './CompanionItem.module.css'
 
-const DialogItem = (props) => {
+const CompanionItem = (props) => {
 
     let path = `${props.id}`;
 
@@ -12,7 +12,7 @@ const DialogItem = (props) => {
                     <img className={classes.companion__avatar__img} src={props.avatar} alt="" />
                     <div className={classes.companion__info}>
                         <span className={classes.companion__name}>{props.name}</span>
-                        <small className={classes.companion__status}>online</small>
+                        <small className={props.status === 'Online'? classes.online : classes.offline}>{props.status}</small>
                     </div>
                 </div>
             </NavLink>
@@ -20,4 +20,4 @@ const DialogItem = (props) => {
     )
 }
 
-export default DialogItem;
+export default CompanionItem;
