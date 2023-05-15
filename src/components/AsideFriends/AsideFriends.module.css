@@ -1,0 +1,27 @@
+.wrapper {
+    grid-area: aside;
+    height: 150px;
+
+}
+
+.container {
+    position: fixed;
+    background-color: #fff;
+    border-radius: 15px;
+    padding: 0 12px;
+}
+
+.heading {
+display: grid;
+justify-content: center;
+}
+
+.friendsList {
+    padding-inline-start: 0;
+}
+
+@media (max-width: 850px){
+    .wrapper {
+        display: none;
+    }
+}

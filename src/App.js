@@ -9,6 +9,7 @@ import { Route, Routes } from 'react-router-dom';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
 import UsersContainer from './components/Users/UsersContainer';
 import NavContainer from './components/Navigation/NavContainer';
+import AsideFriendsContainer from './components/AsideFriends/AsideFriendsContainer';
 
 
 const App = (props) => {
@@ -17,6 +18,7 @@ const App = (props) => {
       <div className='container'>
         <Header />
         <NavContainer />
+        <AsideFriendsContainer />
         <main className='app__wrapper__content'>
           <Routes>
             <Route path='/profile'

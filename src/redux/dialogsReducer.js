@@ -42,7 +42,7 @@ let initialState = {
     {
       id: 'Serg',
       name: 'Серёжа',
-      avatar: 'https://cdnn1.inosmi.ru/img/22993/48/229934848_0:129:1024:641_1240x0_80_0_0_fc06dee210b087046f9670e01644a0c4.jpg.webp',
+      avatar: 'https://avatanplus.com/files/photos/mid/5835babbdaf0515891e16df9.jpg',
       status: 'Offline',
     },
     {

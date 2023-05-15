@@ -10,7 +10,7 @@ let mapStateToProps = (state) => {
 
     return {
         users: state.usersPage.users,
-        friends: state.usersPage.friends,
+        friends: state.friends.friends,
     }
 
 };

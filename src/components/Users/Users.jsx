@@ -1,4 +1,4 @@
-import FriendItem from './FriendItem/FriendItem';
+import FriendItemUsers from './FriendItemUsers/FriendItemUsers';
 import UserItem from './UserItem/UserItem';
 import classes from './Users.module.css';
 
@@ -20,11 +20,12 @@ const Users = (props) => {
     );
 
     let friendItem = props.friends.map(friend =>
-        <FriendItem
+        <FriendItemUsers
             id={friend.id}
             key={friend.id}
             name={friend.name}
             avatar={friend.avatar}
+            status={friend.status}
         />
     )
 

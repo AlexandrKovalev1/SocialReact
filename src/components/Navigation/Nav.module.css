@@ -1,16 +1,18 @@
 .navigation {
     grid-area: nav;
-    min-height: 90vh;
+    max-height: 60vh;
 }
 
 .list {
-    padding-top: 100px;
+    position: fixed;
+    padding-top: 50px;
     padding-inline-start: 30px;
     list-style: none;
 }
 
-.navigation:hover {
-    padding-left: 15px;
+.list:hover {
+    padding-left: 20px;
+    padding-right: 40px;
     border-radius: 15px;
     background-color: rgba(196, 193, 193, 0.189);
     background-size: cover;

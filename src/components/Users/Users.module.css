@@ -20,7 +20,7 @@ padding-bottom: 30px;
 }
 
 .friends__list {
-    max-height: 125px;
+    max-height: 150px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
