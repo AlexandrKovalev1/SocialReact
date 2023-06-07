@@ -1,88 +1,108 @@
-const SHOW_NEXT_USERS = 'SHOW-NEXT-USERS';
-const SHOW_PREV_USERS = 'SHOW-PREV-USERS';
+const SHOW_NEXT_PAGE = 'SHOW-NEXT-PAGE';
+const SHOW_PREV_PAGE = 'SHOW-PREV-PAGE';
 const HIDE_USER = 'HIDE-USER';
 const ADD_USER_TO_FRIENDS = 'ADD-USER-TO-FRIENDS';
-
+const UNFOLLOW = 'UNFOLLOW';
+const SET_USERS = 'SET-USERS';
+const SET_TOTAL_USER_COUNT = 'SET-TOTAL-USER-COUNT';
 
 const initialState = {
     users: [
-        {
-            id: 1,
-            fullname: 'Ivan Ivanov',
-            avatar: 'https://avatarko.ru/img/kartinka/1/Crazy_Frog.jpg',
-            status: 'Первый',
-            location: {
-                country: 'Россия',
-                sity: 'Москва',
-            },
-        },
-        {
-            id: 2,
-            fullname: 'Petr Petrov',
-            avatar: 'https://drasler.ru/wp-content/uploads/2019/05/%D0%9A%D0%B0%D1%80%D1%82%D0%B8%D0%BD%D0%BA%D0%B8-%D1%8D%D1%82%D0%BE-%D0%B2%D0%B0%D0%B6%D0%BD%D0%BE-%D0%B7%D0%BD%D0%B0%D1%82%D1%8C-023.jpg',
-            status: 'Второй',
-            location: {
-                country: 'Россия',
-                sity: 'Санкт-Петербург',
-            },
-        },
-        {
-            id: 3,
-            fullname: 'Cветлана Моя',
-            avatar: 'https://avatars.mds.yandex.net/i?id=4f872bd783d46ceda036375d6365b8b4b3c8cbee-8425275-images-thumbs&n=13',
-            status: 'Третий',
-            location: {
-                country: 'Украина',
-                sity: 'Одесса',
-            },
-            folowed: true,
-        },
-        {
-            id: 4,
-            fullname: 'ЯН Тайна',
-            avatar: 'https://www.iguides.ru/upload/medialibrary/9f8/9f8fdff471b7d281f81f694c100b5adc.png',
-            status: 'Четвертый',
-            location: {
-                country: 'Мексика',
-                sity: '',
-            },
-        },
-
     ],
+    pageSize: 4,
+    totalCount: 0,
+    currentPage: 1,
 };
 
 const usersReducer = (state = initialState, action) => {
-    if (action.type === SHOW_NEXT_USERS) {
-        console.log('nextUser');
-        return state;
+    if (action.type === SHOW_NEXT_PAGE) {
+        let lastPage = Math.ceil(state.totalCount / state.pageSize);
+        return {
+            ...state,
+            currentPage: state.currentPage === lastPage ? 1 : state.currentPage + 1,
+        };
     }
 
-    if (action.type === SHOW_PREV_USERS) {
+    if (action.type === SHOW_PREV_PAGE) {
         console.log('prevUser');
         return state;
     }
 
     if (action.type === HIDE_USER) {
-        console.log('Hide');
-        return state;
+        return {
+            ...state,
+            users: state.users.map((user, index) => {
+                if (index === parseInt(action.index)) {
+                    return { ...state.users[state.users.length - 1] }
+                }
+
+                if (index === state.users.length - 1) {
+                    return { ...state.users[action.index] }
+                }
+                return user;
+            })
+        }
     }
 
     if (action.type === ADD_USER_TO_FRIENDS) {
-        console.log('ADD user');
-        return state;
+        return {
+            ...state,
+            users: state.users.map(user => {
+                if (user.id === action.userId) {
+                    return { ...user, folowed: true }
+                }
+                return user;
+            })
+        }
     }
+
+    if (action.type === UNFOLLOW) {
+        return {
+            ...state,
+            users: state.users.map(user => {
+
+                if (user.id === action.userId) {
+                    return { ...user, folowed: false };
+                }
+
+                return user;
+            })
+        }
+    }
+
+
+    if (action.type === SET_USERS) {
+        return {
+            ...state,
+            users: [...action.users]
+        }
+    }
+
+    if (action.type === SET_TOTAL_USER_COUNT) {
+        return {
+            ...state,
+            totalCount:action.totalCount,
+        }
+    }
+
     return state;
 };
 
 
 
-export const showNextUsersCreator = () => ({ type: SHOW_NEXT_USERS});
+export const showNextPageCreator = () => ({ type: SHOW_NEXT_PAGE });
 
-export const showPrevUsersCreator = () => ({ type: SHOW_PREV_USERS });
+export const showPrevPageCreator = () => ({ type: SHOW_PREV_PAGE });
 
-export const hideUserCreator = () => ({ type: HIDE_USER });
+export const hideUserCreator = (index) => ({ type: HIDE_USER, index: index });
 
-export const addUserToFriendsCreator = () => ({ type: ADD_USER_TO_FRIENDS });
+export const addUserToFriendsCreator = (userId) => ({ type: ADD_USER_TO_FRIENDS, userId: userId });
+
+export const unfollowCreator = (userId) => ({ type: UNFOLLOW, userId: userId });
+
+export const setUsersCreator = (users) => ({ type: SET_USERS, users });
+
+export const setTotalUsersCountCreator = (totalCount) => ({type: SET_TOTAL_USER_COUNT, totalCount })
 
 
 

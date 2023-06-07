@@ -6,7 +6,9 @@ const MessagesItem = (props) => {
 
     let messageItem = props.messages.map(message =>
         <Message
+            key={message.id}
             id={message.id}
+            nameSender={message.nameSender}
             message={message.textMessage}
             avatar={message.avatar}
         />

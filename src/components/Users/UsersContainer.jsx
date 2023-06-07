@@ -1,8 +1,8 @@
 import { connect } from "react-redux";
 import Users from "./Users";
 import {
-    showNextUsersCreator, showPrevUsersCreator,
-    addUserToFriendsCreator, hideUserCreator
+    showNextPageCreator, showPrevPageCreator,
+    addUserToFriendsCreator, hideUserCreator, unfollowCreator,setUsersCreator, setTotalUsersCountCreator,
 } from "../../redux/usersReducer";
 
 
@@ -10,6 +10,9 @@ let mapStateToProps = (state) => {
 
     return {
         users: state.usersPage.users,
+        pageSize: state.usersPage.pageSize,
+        totalCount: state.usersPage.totalCount,
+        currentPage:state.usersPage.currentPage,
         friends: state.friends.friends,
     }
 
@@ -19,19 +22,32 @@ let mapDispatchToProps = (dispatch) => {
 
     return {
         showNext: () => {
-            dispatch(showNextUsersCreator());
+            dispatch(showNextPageCreator());
         },
 
         showPrev: () => {
-            dispatch(showPrevUsersCreator());
+            dispatch(showPrevPageCreator());
         },
-        hideUser: () => {
-            dispatch(hideUserCreator());
+        hideUser: (index) => {
+            dispatch(hideUserCreator(index));
         },
 
-        addToFriends: () => {
-            dispatch(addUserToFriendsCreator());
+        addToFriends: (userId) => {
+            dispatch(addUserToFriendsCreator(userId));
         },
+
+        unfollow: (userId) => {
+            dispatch(unfollowCreator(userId));
+        },
+
+        setUsers: (users) => {
+            dispatch(setUsersCreator(users));
+        },
+
+        setTotalUsersCount: (totalCount) => {
+            dispatch(setTotalUsersCountCreator(totalCount));
+        }
+
     }
 };
 

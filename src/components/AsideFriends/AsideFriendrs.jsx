@@ -2,8 +2,7 @@ import classes from './AsideFriends.module.css';
 import FriendItemAside from './FriendItemAside/FriendItemAside';
 
 let AsideFriends = (props) => {
-    let friendsOnline = props.friends.filter(friend => friend.status === 'Online');
-    let friendItem = friendsOnline.map(friend => <FriendItemAside
+    let friendItem = props.friends.map(friend => <FriendItemAside
         id={friend.id}
         key={friend.id}
         name={friend.name}

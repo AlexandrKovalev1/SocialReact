@@ -7,7 +7,7 @@ const NewPost = (props) => {
         props.editTextPost(text);
     }
 
-    let addNewPost = () => {
+    let addNewPost = (event) => {
         props.addNewPost();
     }
 
@@ -15,8 +15,9 @@ const NewPost = (props) => {
     return (
         <section className={classes.new__post}>
             <div>
-                <label htmlFor="NewPost" className={classes.heading}>Что нового?</label>
+                <label htmlFor="NewPost"></label>
                 <textarea
+                    placeholder='Что нового?'
                     className={classes.text}
                     value={props.textValue}
                     onChange={editTextPost}

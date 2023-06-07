@@ -1,3 +1,5 @@
+// const ADD_FRIEND = 'ADD-FRIEND';
+
 let initialState = {
     friends: [
         {
@@ -43,13 +45,13 @@ let initialState = {
             status: 'Online',
         },
         {
-            id: 'Sveta',
+            id: 'Sveta1',
             name: 'Света',
             avatar: 'https://avatars.mds.yandex.net/i?id=4f872bd783d46ceda036375d6365b8b4b3c8cbee-8425275-images-thumbs&n=13',
             status: 'Online',
         },
         {
-            id: 'Lechich',
+            id: 'Lechich1',
             name: 'Лёхич',
             avatar: 'https://www.pngall.com/wp-content/uploads/4/Jason-Statham-PNG-Photo.png',
             status: 'Online',
@@ -57,7 +59,16 @@ let initialState = {
     ],
 };
 
-const friendsReducer = (state = initialState) => state;
+const friendsReducer = (state = initialState,action) => {
+//     if (action.type === ADD_FRIEND) {
+// return {
+//     ...state,
+    
+// }
+//     }
+
+    return state;
+};
 
 
 export default friendsReducer;

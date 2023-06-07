@@ -16,24 +16,51 @@
     height: 100%;
 }
 
+
 .link__hide,
-.link__add {
+.link__add,
+.link__unfollow {
     position: absolute;
-    padding: 6px;
-    width: 24px;
+    padding: 10px;
     height: 24px;
     right: 15px;
-    border-radius: 50%;
     background-color: #35c59c79;
+    font-size: 15px;
+    font-weight: 900;
+color: #ffffff;
+
 }
 
+.link__hide {
+    width: 24px;
+    border-radius: 50%;
+}
+
+
 .link__hide:hover,
-.link__add:hover {
+.link__add:hover,
+.link__unfollow:hover {
     background-color: #35c59c;
     transform: scale(1.3);
 }
 
-.link__add {
+.link__add:hover {
+    color: green;
+}
+
+.link__unfollow:hover {
+    color: red;
+}
+
+.link__add:hover,
+.link__unfollow:hover{
+    background-color: white;
+}
+
+.link__add,
+.link__unfollow {
+    min-width:80px;
+    border-radius: 50%;
     bottom: 15px;
 }
 
@@ -43,7 +70,7 @@
 
 .about__user {
     position: absolute;
-    bottom: 15px;
+    top: 100px;
     left: 15px;
     display: grid;
     color: #ffffff;
