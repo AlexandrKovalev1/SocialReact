@@ -27,6 +27,32 @@
     height: 80px;
 }
 
+.avatar {
+    height: 70px;
+    display: flex;
+    align-items: center;
+    position: fixed;
+    top: 5px;
+    right: 15px;
+}
+
+.avatar__img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid white;
+}
+
+.avatar__img:hover {
+    width: 65px;
+    height: 65px;
+    border: 2px solid #4c8474;
+}
+
+.login {
+    color: white;
+}
+
 .menu__btn {
     display: none;
 }
@@ -34,6 +60,10 @@
 @media (max-width: 800px) {
     .container {
         padding: 0 20px 0 20px;
+    }
+
+    .avatar {
+        display: none;
     }
 
     .menu__btn {

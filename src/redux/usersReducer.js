@@ -5,6 +5,7 @@ const ADD_USER_TO_FRIENDS = 'ADD-USER-TO-FRIENDS';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET-USERS';
 const SET_TOTAL_USER_COUNT = 'SET-TOTAL-USER-COUNT';
+const SET_IS_FETCHING= 'SET-IS-FETCHING';
 
 const initialState = {
     users: [
@@ -12,6 +13,7 @@ const initialState = {
     pageSize: 4,
     totalCount: 0,
     currentPage: 1,
+    isFetching: false,
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -49,7 +51,8 @@ const usersReducer = (state = initialState, action) => {
             ...state,
             users: state.users.map(user => {
                 if (user.id === action.userId) {
-                    return { ...user, folowed: true }
+                    console.log(user)
+                    return { ...user, followed: true }
                 }
                 return user;
             })
@@ -62,7 +65,7 @@ const usersReducer = (state = initialState, action) => {
             users: state.users.map(user => {
 
                 if (user.id === action.userId) {
-                    return { ...user, folowed: false };
+                    return { ...user, followed: false };
                 }
 
                 return user;
@@ -85,24 +88,33 @@ const usersReducer = (state = initialState, action) => {
         }
     }
 
+    if (action.type === SET_IS_FETCHING) {
+        return {
+            ...state,
+            isFetching:action.isFetching,
+        }
+    }
+
     return state;
 };
 
 
 
-export const showNextPageCreator = () => ({ type: SHOW_NEXT_PAGE });
+export const showNextPage = () => ({ type: SHOW_NEXT_PAGE });
 
-export const showPrevPageCreator = () => ({ type: SHOW_PREV_PAGE });
+export const showPrevPage = () => ({ type: SHOW_PREV_PAGE });
 
-export const hideUserCreator = (index) => ({ type: HIDE_USER, index: index });
+export const hideUser = (index) => ({ type: HIDE_USER, index});
 
-export const addUserToFriendsCreator = (userId) => ({ type: ADD_USER_TO_FRIENDS, userId: userId });
+export const addUserToFriends = (userId) => ({ type: ADD_USER_TO_FRIENDS, userId });
 
-export const unfollowCreator = (userId) => ({ type: UNFOLLOW, userId: userId });
+export const unfollow = (userId) => ({ type: UNFOLLOW, userId });
 
-export const setUsersCreator = (users) => ({ type: SET_USERS, users });
+export const setUsers = (users) => ({ type: SET_USERS, users });
 
-export const setTotalUsersCountCreator = (totalCount) => ({type: SET_TOTAL_USER_COUNT, totalCount })
+export const setTotalUsersCount = (totalCount) => ({type: SET_TOTAL_USER_COUNT, totalCount })
+
+export const setIsFetching = (isFetching) => ({type: SET_IS_FETCHING, isFetching})
 
 
 

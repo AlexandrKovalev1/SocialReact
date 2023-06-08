@@ -1,6 +1,4 @@
 import './App.css';
-import Header from './components/Header/Header';
-import Profile from './components/Profile/Profile';
 import Photo from './components/Photo/Photo';
 import Music from './components/Music/Music';
 import News from './components/News/News';
@@ -10,19 +8,20 @@ import DialogsContainer from './components/Dialogs/DialogsContainer';
 import UsersContainer from './components/Users/UsersContainer';
 import NavContainer from './components/Navigation/NavContainer';
 import AsideFriendsContainer from './components/AsideFriends/AsideFriendsContainer';
+import ProfileContainer from './components/Profile/ProfileContainer';
+import HeaderContainer from './components/Header/HeaderContainer';
 
-
-const App = (props) => {
+const App = () => {
   return (
     <div className='app__wrapper'>
       <div className='container'>
-        <Header />
+        <HeaderContainer />
         <NavContainer />
         <AsideFriendsContainer />
         <main className='app__wrapper__content'>
           <Routes>
-            <Route path='/profile'
-              element={<Profile />}>
+            <Route path='/profile/:userId?'
+              element={<ProfileContainer />}>
             </Route>
 
             <Route path='/find_companion'

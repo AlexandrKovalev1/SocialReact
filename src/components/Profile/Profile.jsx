@@ -5,10 +5,10 @@ import PostsContainer from './Posts/PostsContainer';
 
 
 const Profile = (props) => {
-
+    
     return (
         <div className={classes.main}>
-            <UserProfile />
+            <UserProfile userInfo={props.userInfo}/>
             <NewPostContainer />
             <PostsContainer />
         </div>

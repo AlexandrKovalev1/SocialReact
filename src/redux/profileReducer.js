@@ -1,7 +1,29 @@
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+const SET_USER_INFO = 'SET-USER-INFO';
 
 let initialState = {
+  userInfo: {
+    // aboutMe: 'Статус ...........',
+    // contacts: {
+    //   "facebook": null,
+    //   "website": null,
+    //   "vk": null,
+    //   "twitter": null,
+    //   "instagram": null,
+    //   "youtube": null,
+    //   "github": null,
+    //   "mainLink": null
+    // },
+    // lookingForAJob: true,
+    // lookingForAJobDescription: "Ноль скилла",
+    // fullName: "Alexandr Kovalev",
+    // userId: 100500,
+    // photos: {
+    //   small: "https://social-network.samuraijs.com/activecontent/images/users/25300/user-small.jpg?v=0",
+    //   large: "https://stihi.ru/pics/2015/02/10/1261.jpg"
+    // },
+  },
   posts: [
     {
       id: '1',
@@ -18,7 +40,6 @@ let initialState = {
       avatar: 'https://shapka-youtube.ru/wp-content/uploads/2021/03/prikolnaya-kartinka-na-avu-dlya-patsanov.jpg',
     }
   ],
-
   newPostText: '',
 };
 
@@ -51,12 +72,20 @@ const profileReducer = (state = initialState, action) => {
 
   }
 
+  if (action.type === SET_USER_INFO) {
+    return {
+      ...state,
+      userInfo: action.userInfo,
+    }
+  }
+
   return state;
 
 }
 
+export const setUserInfo = (userInfo) => ({ type: SET_USER_INFO, userInfo });
 
-export const updateNewPostTextCreator = (newText) => ({ type: UPDATE_NEW_POST_TEXT, text: newText })
+export const updateNewPostTextCreator = (newText) => ({ type: UPDATE_NEW_POST_TEXT, text: newText });
 
 export const addPostCreator = () => ({ type: ADD_POST });
 
