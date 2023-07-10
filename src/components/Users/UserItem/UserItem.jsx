@@ -1,9 +1,10 @@
 import classes from './UserItem.module.css'
 import userPhoto from '../../../assets/no_photo.jpg'
 import { NavLink } from 'react-router-dom'
-import axios from 'axios'
+import { followAPI } from '../../../api/api'
 
 const UserItem = (props) => {
+    console.log(props.followingIsProgress.some(id => id === props.id))
     return (
         <li className={classes.wrapper}>
 
@@ -30,41 +31,34 @@ const UserItem = (props) => {
                     </div>
                     <div>
                         {props.folowed ?
-                            <a className={classes.link__unfollow} onClick={() => {
-                                axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${props.id}`, {
-                                    withCredentials: true,
-                                    headers:{
-                                        'API-KEY':'b813de6c-1bc7-47ee-94b8-8283cbcb7526',
-                                    }
-                                })
-                                    .then(response => {
-                                        if (response.data.resultCode === 0) {
+                            <button disabled={props.followingIsProgress.some(id => id === props.id)}
+                                className={classes.button__unfollow} onClick={() => {
+                                    props.toggleFolowingIsProgress(true, props.id);
+                                    followAPI.deleteFollower(props.id).then(data => {
+                                        if (data.resultCode === 0) {
                                             props.unfollow(props.id);
-
+                                            props.toggleFolowingIsProgress(false, props.id);
                                         }
                                     });
 
-                            }}>
+                                }}>
                                 Отписаться
-                            </a>
+                            </button>
                             :
-                            <a className={classes.link__add} onClick={() => {
-                                axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${props.id}`, {}, {
-                                    withCredentials: true,
-                                    headers:{
-                                        'API-KEY':'b813de6c-1bc7-47ee-94b8-8283cbcb7526',
-                                    }
-                                })
-                                    .then(response => {
-                                        if (response.data.resultCode === 0) {
+                            <button disabled={props.followingIsProgress.some(id => id === props.id)}
+                                className={classes.button__add} onClick={() => {
+                                    props.toggleFolowingIsProgress(true, props.id);
+                                    followAPI.postFollower(props.id).then(data => {
+                                        if (data.resultCode === 0) {
                                             props.addUserToFriends(props.id);
+                                            props.toggleFolowingIsProgress(false, props.id);
                                         }
                                     });
 
 
-                            }}>
+                                }}>
                                 Подписаться
-                            </a>
+                            </button>
                         }
                     </div>
                 </div>

@@ -19,9 +19,11 @@ class HeaderContainer extends React.Component {
             });
     }
 
+
     render() {
         return <Header
             isAuth={this.props.isAuth}
+            myId={this.props.myId}
             isFetching={this.props.isFetching}
         />;
     }
@@ -31,6 +33,7 @@ class HeaderContainer extends React.Component {
 let mapStateToProps = (state) => ({
     isAuth: state.auth.isAuth,
     isFetching: state.auth.isFetching,
+    myId:state.auth.id
 });
 
 export default connect(mapStateToProps, { setAuthData, setIsFethingAuth })(HeaderContainer)

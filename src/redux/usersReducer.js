@@ -5,7 +5,10 @@ const ADD_USER_TO_FRIENDS = 'ADD-USER-TO-FRIENDS';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET-USERS';
 const SET_TOTAL_USER_COUNT = 'SET-TOTAL-USER-COUNT';
-const SET_IS_FETCHING= 'SET-IS-FETCHING';
+const SET_IS_FETCHING = 'SET-IS-FETCHING';
+const TOGGLE_FOLOWING_IS_PROGRESS = 'TOGGLE-FOLOWING-IS-PROGRESS';
+
+
 
 const initialState = {
     users: [
@@ -14,6 +17,9 @@ const initialState = {
     totalCount: 0,
     currentPage: 1,
     isFetching: false,
+    followingIsProgress: [],
+    showNextIsProgress: false,
+
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -51,7 +57,6 @@ const usersReducer = (state = initialState, action) => {
             ...state,
             users: state.users.map(user => {
                 if (user.id === action.userId) {
-                    console.log(user)
                     return { ...user, followed: true }
                 }
                 return user;
@@ -84,14 +89,23 @@ const usersReducer = (state = initialState, action) => {
     if (action.type === SET_TOTAL_USER_COUNT) {
         return {
             ...state,
-            totalCount:action.totalCount,
+            totalCount: action.totalCount,
         }
     }
 
     if (action.type === SET_IS_FETCHING) {
         return {
             ...state,
-            isFetching:action.isFetching,
+            isFetching: action.isFetching,
+        }
+    }
+
+    if (action.type === TOGGLE_FOLOWING_IS_PROGRESS) {
+        return {
+            ...state,
+            followingIsProgress: action.isFetching
+                ? [...state.followingIsProgress, action.userId]
+                : state.followingIsProgress.filter(id => id !== action.userId)
         }
     }
 
@@ -104,7 +118,7 @@ export const showNextPage = () => ({ type: SHOW_NEXT_PAGE });
 
 export const showPrevPage = () => ({ type: SHOW_PREV_PAGE });
 
-export const hideUser = (index) => ({ type: HIDE_USER, index});
+export const hideUser = (index) => ({ type: HIDE_USER, index });
 
 export const addUserToFriends = (userId) => ({ type: ADD_USER_TO_FRIENDS, userId });
 
@@ -112,10 +126,11 @@ export const unfollow = (userId) => ({ type: UNFOLLOW, userId });
 
 export const setUsers = (users) => ({ type: SET_USERS, users });
 
-export const setTotalUsersCount = (totalCount) => ({type: SET_TOTAL_USER_COUNT, totalCount })
+export const setTotalUsersCount = (totalCount) => ({ type: SET_TOTAL_USER_COUNT, totalCount })
 
-export const setIsFetching = (isFetching) => ({type: SET_IS_FETCHING, isFetching})
+export const setIsFetching = (isFetching) => ({ type: SET_IS_FETCHING, isFetching })
 
+export const toggleFolowingIsProgress = (isFetching, userId) => ({ type: TOGGLE_FOLOWING_IS_PROGRESS, isFetching, userId })
 
 
 export default usersReducer;

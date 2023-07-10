@@ -6,7 +6,6 @@ import Preloader from '../common/Preloader/Preloader';
 
 
 const Users = (props) => {
-
     let friendItems = props.friends.map(friend =>
         <FriendItemUsers
             id={friend.id}
@@ -31,6 +30,8 @@ const Users = (props) => {
             status={user.status}
             country={'user.location.country'}
             sity={'user.location.sity'}
+            toggleFolowingIsProgress={props.toggleFolowingIsProgress}
+            followingIsProgress={props.followingIsProgress}
         />
     )
 
