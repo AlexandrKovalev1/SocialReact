@@ -1,3 +1,5 @@
+import { usersAPI } from "../api/api";
+
 const SHOW_NEXT_PAGE = 'SHOW-NEXT-PAGE';
 const SHOW_PREV_PAGE = 'SHOW-PREV-PAGE';
 const HIDE_USER = 'HIDE-USER';
@@ -132,5 +134,39 @@ export const setIsFetching = (isFetching) => ({ type: SET_IS_FETCHING, isFetchin
 
 export const toggleFolowingIsProgress = (isFetching, userId) => ({ type: TOGGLE_FOLOWING_IS_PROGRESS, isFetching, userId })
 
+export const getUsers = (page, size) => {
+    return (dispatch) => {
+        dispatch(setIsFetching(true));
+        usersAPI.getUsers(page, size).then(data => {
+            dispatch(setIsFetching(false));
+            dispatch(setUsers(data.items));
+            dispatch(setTotalUsersCount(data.totalCount));
+        })
+    }
+};
+
+export const unfollowSucces = (userId) => {
+    return (dispatch) => {
+        dispatch(toggleFolowingIsProgress(true, userId));
+        usersAPI.deleteFollower(userId).then(data => {
+            if (data.resultCode === 0) {
+                dispatch(unfollow(userId));
+                dispatch(toggleFolowingIsProgress(false, userId));
+            }
+        });
+    }
+};
+
+export const followSucces = (userId) => {
+    return (dispatch) => {
+        dispatch(toggleFolowingIsProgress(true, userId));
+        usersAPI.postFollower(userId).then(data => {
+            if (data.resultCode === 0) {
+                dispatch(addUserToFriends(userId));
+                dispatch(toggleFolowingIsProgress(false, userId));
+            }
+        });
+    }
+};
 
 export default usersReducer;

@@ -6,6 +6,7 @@
 
 .app__wrapper {
   position: relative;
+  height: 100vh;
   background-image: url('./background.jpeg');
   background-position: center;
   background-size: cover;

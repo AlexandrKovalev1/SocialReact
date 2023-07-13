@@ -10,6 +10,7 @@ import NavContainer from './components/Navigation/NavContainer';
 import AsideFriendsContainer from './components/AsideFriends/AsideFriendsContainer';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
+import LoginForm from './components/LoginForm/LoginForm';
 
 const App = () => {
   return (
@@ -20,6 +21,12 @@ const App = () => {
         <AsideFriendsContainer />
         <main className='app__wrapper__content'>
           <Routes>
+
+
+            <Route path='/login'
+              element={<LoginForm />}>
+            </Route>
+
             <Route path='/profile/:userId?'
               element={<ProfileContainer />}>
             </Route>

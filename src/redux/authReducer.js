@@ -1,3 +1,5 @@
+import { authAPI } from "../api/api";
+
 const SET_DATA = 'SET-DATA';
 const SET_IS_FETCHING_AUTH = 'SET-IS-FETCHING-AUTH';
 
@@ -27,4 +29,16 @@ export const setAuthData = (email, id, login) => ({ type: SET_DATA, data: {email
 
 export const setIsFethingAuth = (isFetching) => ({ type: SET_IS_FETCHING_AUTH, isFetching });
 
+export const getAuthUserData = () => {
+    return (dispatch) => {
+        dispatch(setIsFethingAuth(true));
+        authAPI.getIsAuthData().then(data => {
+            dispatch(setIsFethingAuth(false));
+            if (data.resultCode === 0) {
+                let { email, id, login } = { ...data.data };
+                dispatch(setAuthData(email, id, login));
+            }
+        });
+    }
+}
 export default authReducer;

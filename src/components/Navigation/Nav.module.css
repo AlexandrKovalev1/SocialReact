@@ -5,7 +5,7 @@
 
 .list {
     position: fixed;
-    padding-top: 50px;
+    padding: 50px 0;
     padding-inline-start: 30px;
     list-style: none;
 }

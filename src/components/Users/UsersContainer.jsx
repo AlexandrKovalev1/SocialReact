@@ -2,36 +2,23 @@ import { connect } from "react-redux";
 import Users from "./Users";
 import {
     showNextPage, showPrevPage,
-    addUserToFriends, hideUser,
-    unfollow, setUsers,
-    setTotalUsersCount, setIsFetching,
+    getUsers, hideUser,
+    followSucces,unfollowSucces,
     toggleFolowingIsProgress
 } from "../../redux/usersReducer";
 import React from "react";
-import { usersAPI } from "../../api/api";
 
 
 class UsersContainer extends React.Component {
 
     componentDidMount() {
-        this.props.setIsFetching(true);
-        usersAPI.getUsers().then(data => {
-            this.props.setIsFetching(false);
-            this.props.setUsers(data.items);
-            this.props.setTotalUsersCount(data.totalCount);
-        })
-
+        this.props.getUsers();
     }
 
 
     onShowNextUsers = () => {
-        this.props.setIsFetching(true);
         this.props.showNextPage();
-        usersAPI.getUsers(this.props.currentPage).then(data => {
-            this.props.setIsFetching(false);
-            this.props.setUsers(data.items)
-        })
-
+        this.props.getUsers(this.props.currentPage);
     }
 
     render() {
@@ -42,8 +29,8 @@ class UsersContainer extends React.Component {
                 showNext={this.props.showNextPage}
                 showPrev={this.props.showPrevPage}
                 hideUser={this.props.hideUser}
-                addUserToFriends={this.props.addUserToFriends}
-                unfollow={this.props.unfollow}
+                followSucces={this.props.followSucces}
+                unfollowSucces={this.props.unfollowSucces}
                 onShowNextUsers={this.onShowNextUsers}
                 isFetching={this.props.isFetching}
                 toggleFolowingIsProgress={this.props.toggleFolowingIsProgress}
@@ -71,8 +58,8 @@ let mapStateToProps = (state) => {
 
 export default connect(mapStateToProps,
     {
-        showNextPage, showPrevPage, hideUser,
-        addUserToFriends, unfollow, setUsers,
-        setTotalUsersCount, setIsFetching, toggleFolowingIsProgress
+        showNextPage, showPrevPage, hideUser, 
+        toggleFolowingIsProgress, getUsers,
+        followSucces,unfollowSucces
     }
 )(UsersContainer);;

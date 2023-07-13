@@ -1,10 +1,8 @@
 import classes from './UserItem.module.css'
 import userPhoto from '../../../assets/no_photo.jpg'
 import { NavLink } from 'react-router-dom'
-import { followAPI } from '../../../api/api'
 
 const UserItem = (props) => {
-    console.log(props.followingIsProgress.some(id => id === props.id))
     return (
         <li className={classes.wrapper}>
 
@@ -33,29 +31,14 @@ const UserItem = (props) => {
                         {props.folowed ?
                             <button disabled={props.followingIsProgress.some(id => id === props.id)}
                                 className={classes.button__unfollow} onClick={() => {
-                                    props.toggleFolowingIsProgress(true, props.id);
-                                    followAPI.deleteFollower(props.id).then(data => {
-                                        if (data.resultCode === 0) {
-                                            props.unfollow(props.id);
-                                            props.toggleFolowingIsProgress(false, props.id);
-                                        }
-                                    });
-
+                                    props.unfollowSucces(props.id);
                                 }}>
                                 Отписаться
                             </button>
                             :
                             <button disabled={props.followingIsProgress.some(id => id === props.id)}
                                 className={classes.button__add} onClick={() => {
-                                    props.toggleFolowingIsProgress(true, props.id);
-                                    followAPI.postFollower(props.id).then(data => {
-                                        if (data.resultCode === 0) {
-                                            props.addUserToFriends(props.id);
-                                            props.toggleFolowingIsProgress(false, props.id);
-                                        }
-                                    });
-
-
+                                    props.followSucces(props.id)
                                 }}>
                                 Подписаться
                             </button>

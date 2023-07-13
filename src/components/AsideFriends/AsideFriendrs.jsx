@@ -11,7 +11,6 @@ let AsideFriends = (props) => {
     />
     )
 
-
     return (
         <aside className={classes.wrapper}>
             <div className={classes.container}>
@@ -19,7 +18,7 @@ let AsideFriends = (props) => {
                     <h4 className={classes.heading}>Друзья онлайн</h4>
                     <div>
                         <ul className={classes.friendsList}>
-                            {friendItem.slice(0,5)}
+                            {friendItem.slice(0, 5)}
                         </ul>
                     </div>
                 </div>

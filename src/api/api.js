@@ -15,19 +15,8 @@ export const usersAPI = {
         return instance.get(
             `users?count=${size}&page=${page}`)
             .then(response => response.data)
-    }
-}
+    },
 
-export const profileAPI = {
-    getProfile(userId) {
-        return (
-            instance.get(`profile/${userId}`)
-                .then(response => response.data)
-        )
-    }
-};
-
-export const followAPI = {
     postFollower(id) {
         return (
             instance.post(`follow/${id}`, {})
@@ -41,8 +30,24 @@ export const followAPI = {
                 .then(response => response.data)
         )
     }
+}
 
+export const profileAPI = {
+    getProfile(userId) {
+        return (
+            instance.get(`profile/${userId}`)
+                .then(response => response.data)
+        )
+    }
 };
+
+export const authAPI = {
+    getIsAuthData() {
+        return (instance.get(`auth/me`)
+            .then(response => response.data)
+        )
+    }
+}
 
 
 

@@ -20,8 +20,8 @@ const Users = (props) => {
         <UserItem
             index={index}
             hideUser={props.hideUser}
-            unfollow={props.unfollow}
-            addUserToFriends={props.addUserToFriends}
+            unfollowSucces={props.unfollowSucces}
+            followSucces={props.followSucces}
             id={user.id}
             folowed={user.followed}
             key={user.id}

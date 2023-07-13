@@ -11,7 +11,7 @@ const Nav = (props) => {
     return (
         <nav className={classes.navigation}>
             <ul className={classes.list}>
-{navItem}
+                {navItem}
             </ul>
         </nav>
     )
