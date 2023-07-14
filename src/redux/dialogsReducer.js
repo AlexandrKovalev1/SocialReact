@@ -6,7 +6,7 @@ let initialState = {
     {
       id: 1,
       nameSender:'Sveta',
-      textMessage: 'How are you ',
+      textMessage: '☂ Saint-Petersburg',
       avatar: 'https://avatars.mds.yandex.net/i?id=4f872bd783d46ceda036375d6365b8b4b3c8cbee-8425275-images-thumbs&n=13'
     },
     {

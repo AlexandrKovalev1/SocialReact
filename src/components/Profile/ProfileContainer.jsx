@@ -11,6 +11,7 @@ class ProfileContainer extends React.Component {
     componentDidMount() {
         let userId = this.props.router.params.userId ? this.props.router.params.userId : '29252';
         this.props.getProfile(userId);
+        console.log(this.props);
     }
 
     componentDidUpdate(prevProps) {
@@ -32,7 +33,7 @@ class ProfileContainer extends React.Component {
 
 
 
-let mapStateToProps = (state) => ({ userInfo: state.profilePage.userInfo });
+let mapStateToProps = (state) => ({ userInfo: state.profilePage.userInfo.userProfile });
 
 export default compose(
     connect(mapStateToProps, { getProfile }),

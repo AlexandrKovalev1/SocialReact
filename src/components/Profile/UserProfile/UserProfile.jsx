@@ -1,6 +1,7 @@
 import Preloader from '../../common/Preloader/Preloader';
 import classes from './UserProfile.module.css';
 import noPhoto from '../../../assets/no_photo.jpg'
+import Status from '../Status/Status';
 
 
 const UserProfile = (props) => {
@@ -25,13 +26,13 @@ const UserProfile = (props) => {
       <div className={classes.header__background}>
       </div>
       <div className={classes.user__avatar}>
-        <img src={props.userInfo.photos.large ? props.userInfo.photos.large:noPhoto } alt="avatar" />
+        <img src={props.userInfo.photos.large ? props.userInfo.photos.large : noPhoto} alt="avatar" />
       </div>
       <div className={classes.user__info}>
         <div className={classes.user__about}>
           <span className={classes.user__name}>{props.userInfo.fullName}</span>
           <span>{props.userInfo.aboutMe}</span>
-          <span className={classes.from}>☂ Saint-Petersburg</span>
+          <Status />
         </div>
         <div className={classes.social}>
           {socialList}
