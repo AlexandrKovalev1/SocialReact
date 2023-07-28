@@ -1,10 +1,11 @@
+
 import classes from './Music.module.css'
 
 
-const Music = () => {
+const Music = (props) => {
     return (
         <div className={classes.main__music}>
-Music
+            Music
         </div>
     )
 }

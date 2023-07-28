@@ -1,5 +1,4 @@
 const SEND_MESSAGE = 'SEND-MESSAGE';
-const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT';
 
 let initialState = {
   messages: [
@@ -27,8 +26,6 @@ let initialState = {
       textMessage: ['lorem lorem lorem'],
       avatar: 'https://stihi.ru/pics/2015/02/10/1261.jpg'
     }],
-
-  newMessageText: '',
 
   companions: [
     {
@@ -72,41 +69,24 @@ let initialState = {
 
 const dialogsReducer = (state = initialState, action) => {
 
-
-  if (action.type === UPDATE_NEW_MESSAGE_TEXT) {
-
-    return {
-      ...state,
-      newMessageText: action.text,
-    }
-
-  }
-
   if (action.type === SEND_MESSAGE) {
     let newMessage = {
       id: state.messages.length+1,
       nameSender:'Boss',
-      textMessage: state.newMessageText,
+      textMessage: action.text,
       avatar: 'https://stihi.ru/pics/2015/02/10/1261.jpg',
     }
 
     return {
       ...state,
       messages: [...state.messages, newMessage],
-
-      newMessageText: '',
     }
   }
 
   return state;
 }
 
-export const updateNewMessageTextCreator = (textMessage) => ({
-  type: UPDATE_NEW_MESSAGE_TEXT,
-  text: textMessage,
-});
-
-export const sendMessageCreator = () => ({ type: SEND_MESSAGE });
+export const sendMessageCreator = (text) => ({ type: SEND_MESSAGE , text});
 
 export default dialogsReducer;
 

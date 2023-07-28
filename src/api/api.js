@@ -56,11 +56,23 @@ export const profileAPI = {
 };
 
 export const authAPI = {
+    login(authData) {
+        return (instance.post(`/auth/login`, authData))
+            .then(response => response.data);
+    },
+
+    logout() {
+        return (instance.delete(`/auth/login`))
+            .then(response => response.data);
+    },
+
     getIsAuthData() {
         return (instance.get(`auth/me`)
             .then(response => response.data)
-        )
+        );
     }
+
+
 }
 
 

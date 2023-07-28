@@ -1,47 +1,51 @@
-import React from 'react';
+import TextAreaForm from '../../common/TextAreaForm/TextAreaForm';
 import classes from './NewPost.module.css';
+import { Field, Formik } from 'formik';
 
 
-class NewPost extends React.Component {
-    state = {
-        textValue: '',
-    };
+const NewPost = (props) => {
 
-    editTextValue = (event) => {
-        let text = event.target.value;
-        this.setState({
-            textValue:text,
-        })
+    const submit = (values, { setSubmitting }) => {
+        props.addNewPost(values.text)
+        values.text = '';
+        setSubmitting(false);
     }
 
-    addNewPost = () => {
-        this.props.addNewPost(this.state.textValue);
-        this.setState({
-            textValue:'',
-        })
-    }
-
-    render() {
-        return (
-            <section className={classes.new__post}>
-                <div>
-                    <label htmlFor="NewPost"></label>
-                    <textarea
-                        placeholder='Что нового?'
-                        className={classes.text}
-                        value={this.state.textValue}
-                        onChange={this.editTextValue}
-                    />
-                    <button
-                        className={classes.button}
-                        onClick={this.addNewPost}>
-                        Опубликовать
-                    </button>
-                </div>
-            </section>
-        )
-
-    }
+    return (
+        <Formik
+            initialValues={{ text: '' }}
+            onSubmit={submit}
+        >
+            {({
+                errors,
+                values,
+                handleChange,
+                handleBlur,
+                handleSubmit,
+                isSubmitting,
+            }) => (
+                <form onSubmit={handleSubmit} className={classes.new__post}>
+                    <div >
+                        <Field
+                            name={'text'}
+                            component={TextAreaForm}
+                            placeholder={errors.text}
+                            className={classes.text}
+                            value={values.text}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                        />
+                        <button
+                            type="submit"
+                            disabled={isSubmitting}
+                            className={classes.button}>
+                            Опубликовать
+                        </button>
+                    </div>
+                </form>
+            )}
+        </Formik>
+    )
 }
 
 export default NewPost;

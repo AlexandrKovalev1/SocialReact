@@ -1,6 +1,8 @@
 import classes from './Dialogs.module.css';
 import CompanionItem from './CompanionItem/CompanionItem';
 import MessagesItem from './MessagesItem/MessagesItem';
+import { Formik, Field } from 'formik';
+
 
 const Dialogs = (props) => {
 
@@ -10,18 +12,9 @@ const Dialogs = (props) => {
             id={companion.id}
             name={companion.name}
             avatar={companion.avatar}
-            status = {companion.status}
+            status={companion.status}
         />
     )
-
-    const onChangeMessageBody = (event) => {
-        let text = event.target.value;
-        props.editMessageBody(text);
-    }
-
-    const sendMessage = () => {
-        props.sendMessage();
-    }
 
 
     return (
@@ -47,20 +40,55 @@ const Dialogs = (props) => {
                         </div>
                     </div>
                     <MessagesItem messages={props.messages} />
-                    <div className={classes.text__field}>
-                        <div className={classes.text__area__wrapper}>
-                            <textarea
-                                className={classes.new__message}
-                                value={props.newMessageText}
-                                onChange={onChangeMessageBody}
-                            />
-                            <button className={classes.button} onClick={sendMessage}>Отправить</button>
-                        </div>
-                    </div>
+                    <FormSendMessage sendMessage={props.sendMessage} />
                 </div>
             </div>
         </div>
     )
+}
+
+
+const FormSendMessage = (props) => {
+
+    const submit = (values, { setSubmitting }) => {
+        props.sendMessage(values.text)
+        values.text = '';
+        setSubmitting(false);
+    }
+    return (
+        <Formik
+            initialValues={{ text: '' }}
+            onSubmit={submit}
+        >
+            {({
+                values,
+                handleChange,
+                handleBlur,
+                handleSubmit,
+                isSubmitting,
+            }) => (
+                <form onSubmit={handleSubmit} className={classes.text__field}>
+                    <div className={classes.text__area__wrapper}>
+                        <Field
+                            name={'text'}
+                            component={'textarea'}
+                            className={classes.new__message}
+                            value={values.text}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                        />
+                        <button
+                            type="submit"
+                            disabled={isSubmitting}
+                            className={classes.button}>
+                            Отправить
+                        </button>
+                    </div>
+                </form>
+            )}
+        </Formik>
+    )
+
 }
 
 export default Dialogs;

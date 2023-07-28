@@ -10,22 +10,20 @@ import NavContainer from './components/Navigation/NavContainer';
 import AsideFriendsContainer from './components/AsideFriends/AsideFriendsContainer';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
-import LoginForm from './components/LoginForm/LoginForm';
+import LoginPage from './components/Login/LoginPage/LoginPage';
+import WithRouter from './components/common/hoc/WithRouter';
 
-const App = () => {
+const App = (props) => {
+  let loginPage = props.router.location.pathname === '/login';
+
   return (
     <div className='app__wrapper'>
-      <div className='container'>
+      <div className={!loginPage ? 'container_isAuth' : 'container'}>
         <HeaderContainer />
         <NavContainer />
         <AsideFriendsContainer />
         <main className='app__wrapper__content'>
           <Routes>
-
-
-            <Route path='/login'
-              element={<LoginForm />}>
-            </Route>
 
             <Route path='/profile/:userId?'
               element={<ProfileContainer />}>
@@ -55,6 +53,9 @@ const App = () => {
               element={<Settings />}>
             </Route>
 
+            <Route path='/login'
+              element={<LoginPage />}>
+            </Route>
           </Routes>
         </main>
       </div>
@@ -64,6 +65,6 @@ const App = () => {
 
 
 
+let mapStateToprops = (state) => ({ isAuth: state.auth.isAuth })
 
-
-export default App;
+export default WithRouter(App);

@@ -1,0 +1,33 @@
+label input.input {
+    display: none;
+}
+
+.wrapper {
+    color: transparent;
+    text-shadow: 0 0 0 black;
+}
+
+.custom__checkbox {
+    width: 30px;
+    height: 30px;
+    margin-right: 20px;
+    border: 1px solid green;
+    text-align: center;  
+}
+
+[type=checkbox]:checked +.custom__checkbox:before {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}
+
+.custom__checkbox:before {
+    content: '\2713';
+    display: inline-block;
+    color: green;
+    font-size: 30px;
+    line-height: 30px;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+}

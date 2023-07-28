@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 const HideComponentIfNotAutorized = (Component) => {
 
-    let mapStateToProps = (state) => ({ isAuth: state.auth.isAuth, });
+    let mapStateToProps = (state) => ({ isAuth: state.auth.isAuth});
 
     const HideComponent = (props) => {
         return <>

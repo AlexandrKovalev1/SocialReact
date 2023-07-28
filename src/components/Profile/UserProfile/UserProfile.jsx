@@ -22,12 +22,14 @@ const UserProfile = (props) => {
   });
 
   return (
+    
     <section className={classes.profile}>
       <div className={classes.header__background}>
       </div>
       <div className={classes.user__avatar}>
         <img src={props.userInfo.photos.large ? props.userInfo.photos.large : noPhoto} alt="avatar" />
       </div>
+    
       <div className={classes.user__info}>
         <div className={classes.user__about}>
           <span className={classes.user__name}>{props.userInfo.fullName}</span>

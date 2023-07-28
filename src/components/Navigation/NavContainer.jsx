@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import Nav from "./Nav";
-import HideComponentIfNotAutorized from "../../hoc/HideComponentIfNotAutorized";
+import HideComponentIfNotAutorized from "../common/hoc/HideComponentIfNotAutorized";
 import { compose } from "redux";
 
 let mapStateToProps = (state) => ({

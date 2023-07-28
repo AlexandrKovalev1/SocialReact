@@ -16,7 +16,8 @@
     height: 100%;
 }
 
-button{
+.button__add,
+.button__unfollow{
     all:unset;
 }
 

@@ -1,3 +1,4 @@
+
 import { authAPI } from "../api/api";
 
 const SET_DATA = 'SET-DATA';
@@ -15,7 +16,7 @@ let initialState = {
 
 const authReducer = (state = initialState, action) => {
     if (action.type === SET_DATA) {
-        return { ...state, ...action.data, isAuth: true };
+        return { ...state, ...action.payload };
     };
 
     if (action.type === SET_IS_FETCHING_AUTH) {
@@ -25,7 +26,9 @@ const authReducer = (state = initialState, action) => {
     return state;
 }
 
-export const setAuthData = (email, id, login) => ({ type: SET_DATA, data: {email, id, login} });
+
+
+export const setAuthData = (email, id, login, isAuth = true) => ({ type: SET_DATA, payload: { email, id, login, isAuth } });
 
 export const setIsFethingAuth = (isFetching) => ({ type: SET_IS_FETCHING_AUTH, isFetching });
 
@@ -41,4 +44,34 @@ export const getAuthUserData = () => {
         });
     }
 }
+
+export const login = (authData, setStatus) => {
+    return (dispatch) => {
+        dispatch(setIsFethingAuth(true));
+        authAPI.login(authData).then(data => {
+            dispatch(setIsFethingAuth(false));
+            if (data.resultCode === 0) {
+                dispatch(getAuthUserData())
+            } else {
+                setStatus({ error: data.messages });
+            }
+        })
+    }
+}
+
+export const logout = () => {
+    return (dispatch) => {
+        dispatch(setIsFethingAuth(true));
+        authAPI.logout().then(data => {
+            dispatch(setIsFethingAuth(false));
+            if (data.resultCode === 0) {
+                dispatch(setAuthData(null, null, null, false))
+            }
+        });
+    }
+
+}
+
+
+
 export default authReducer;

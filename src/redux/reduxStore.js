@@ -8,6 +8,8 @@ import authReducer from './authReducer';
 import thunkMiddleware from 'redux-thunk';
 
 
+
+
 let redusers = combineReducers({
     auth:authReducer,
     friends: friendsReducer,

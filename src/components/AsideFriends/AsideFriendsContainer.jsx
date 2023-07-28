@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import AsideFriends from "./AsideFriendrs";
-import HideComponentIfNotAutorized from "../../hoc/HideComponentIfNotAutorized";
+import HideComponentIfNotAutorized from "../common/hoc/HideComponentIfNotAutorized";
 import { compose } from "redux";
 
 let mapStateTOprops = (state) => {
