@@ -12,59 +12,76 @@ import ProfileContainer from './components/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import LoginPage from './components/Login/LoginPage/LoginPage';
 import WithRouter from './components/common/hoc/WithRouter';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import React from 'react';
+import { initializedApp } from './redux/app-reducer';
+import Preloader from './components/common/Preloader/Preloader';
 
-const App = (props) => {
-  let loginPage = props.router.location.pathname === '/login';
 
-  return (
-    <div className='app__wrapper'>
-      <div className={!loginPage ? 'container_isAuth' : 'container'}>
-        <HeaderContainer />
-        <NavContainer />
-        <AsideFriendsContainer />
-        <main className='app__wrapper__content'>
-          <Routes>
+class App extends React.Component {
+  componentDidMount() {
+    this.props.initializedApp()
+  }
 
-            <Route path='/profile/:userId?'
-              element={<ProfileContainer />}>
-            </Route>
+  render() {
+    let loginPage = this.props.router.location.pathname === '/login';
 
-            <Route path='/find_companion'
-              element={<UsersContainer />}>
-            </Route>
+    if (!this.props.isInitialized) {
+      return <Preloader />
+    }
 
-            <Route path='/dialogs/*'
-              element={<DialogsContainer />}>
-            </Route>
+    return (
+      <div className='app__wrapper'>
+        <div className={!loginPage ? 'container_isAuth' : 'container'}>
+          <HeaderContainer />
+          <NavContainer />
+          <AsideFriendsContainer />
+          <main className='app__wrapper__content'>
+            <Routes>
 
-            <Route path='/photo'
-              element={<Photo />}>
-            </Route>
+              <Route path='/profile/:userId?'
+                element={<ProfileContainer />}>
+              </Route>
 
-            <Route path='/music'
-              element={<Music />}>
-            </Route>
+              <Route path='/find_companion'
+                element={<UsersContainer />}>
+              </Route>
 
-            <Route path='/news'
-              element={<News />}>
-            </Route>
+              <Route path='/dialogs/*'
+                element={<DialogsContainer />}>
+              </Route>
 
-            <Route path='/settings'
-              element={<Settings />}>
-            </Route>
+              <Route path='/photo'
+                element={<Photo />}>
+              </Route>
 
-            <Route path='/login'
-              element={<LoginPage />}>
-            </Route>
-          </Routes>
-        </main>
+              <Route path='/music'
+                element={<Music />}>
+              </Route>
+
+              <Route path='/news'
+                element={<News />}>
+              </Route>
+
+              <Route path='/settings'
+                element={<Settings />}>
+              </Route>
+
+              <Route path='/login'
+                element={<LoginPage />}>
+              </Route>
+            </Routes>
+          </main>
+        </div>
       </div>
-    </div>
-  );
+    )
+  }
 }
 
+let mapStateToProps = (state) => ({ isInitialized: state.app.isInitiallized })
 
-
-let mapStateToprops = (state) => ({ isAuth: state.auth.isAuth })
-
-export default WithRouter(App);
+export default compose(
+  connect(mapStateToProps, { initializedApp }),
+  WithRouter)
+  (App);

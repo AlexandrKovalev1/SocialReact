@@ -8,7 +8,7 @@ const Header = (props) => {
         <header className={classes.header}>
             <div className={classes.container}>
                 <h1 className={classes.heading}>
-                    <NavLink to={props.isAuth ? `/profile/${props.myId} ` : '/login'} className={classes.logo}>
+                    <NavLink to={props.isAuth ? `/profile ` : '/login'} className={classes.logo}>
                         <img className={classes.logo__img} src="https://i.ibb.co/hg1Gm1s/logo3-17-201436.png" alt="logo3-17-201436" />
                     </NavLink>
                 </h1>
@@ -16,7 +16,7 @@ const Header = (props) => {
                     {props.isAuth ?
                         (props.isFetching ? <Preloader height={"60px"} />
                             : <div>
-                                <NavLink to={`/profile/${props.myId} `} >
+                                <NavLink to={`/profile`} >
                                     <img className={classes.avatar__img} src="https://stihi.ru/pics/2015/02/10/1261.jpg" alt="" />
                                 </NavLink>
                                 <button onClick={props.logout}>

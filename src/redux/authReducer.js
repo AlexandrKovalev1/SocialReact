@@ -35,7 +35,7 @@ export const setIsFethingAuth = (isFetching) => ({ type: SET_IS_FETCHING_AUTH, i
 export const getAuthUserData = () => {
     return (dispatch) => {
         dispatch(setIsFethingAuth(true));
-        authAPI.getIsAuthData().then(data => {
+        return authAPI.getIsAuthData().then(data => {
             dispatch(setIsFethingAuth(false));
             if (data.resultCode === 0) {
                 let { email, id, login } = { ...data.data };
@@ -53,7 +53,8 @@ export const login = (authData, setStatus) => {
             if (data.resultCode === 0) {
                 dispatch(getAuthUserData())
             } else {
-                setStatus({ error: data.messages });
+                let message = data.messages > 0 ? data.messages[0] : 'Some error';
+                setStatus({ error: message });
             }
         })
     }
