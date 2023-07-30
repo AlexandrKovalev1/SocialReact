@@ -1,55 +1,50 @@
-import React from "react";
-import { connect } from "react-redux";
-import { updateStatus } from "../../../redux/profileReducer";
+import { connect } from "react-redux"
+import { getUserStatus } from "../../../redux/profile-selectors"
+import { useEffect, useState } from "react"
+import { updateStatus } from "../../../redux/profileReducer"
 
 
+const StatusWithHooks = (props) => {
 
+    let [editMode, setEditMode] = useState(false);
+    let [status, setStatus] = useState(props.status)
 
-class Status extends React.Component {
+    useEffect(() => { setStatus(props.status) }, [props.status]);
 
-    state = {
-        statusValue: this.props.status,
-        editMode: false,
+    const activeEditMode = () => {
+        setEditMode(true);
     }
 
-    editStatusToggle = () => {
-        this.setState({
-            editMode: !this.state.editMode,
-            statusValue: this.props.status,
-        })
-    }
+    const onStatusChange = (e) => {
+        setStatus(e.target.value)
 
-    setStatusText = (event) => {
-        this.setState({ statusValue: event.target.value })
-
-        if (event.keyCode === 13) {
-            this.editStatusToggle()
-            this.props.updateStatus(this.state.statusValue)
+        if (e.keyCode === 13) {
+            sendStatus();
         }
     }
 
-    render() {
-        return (
-            <div>
-                {!this.state.editMode &&
-                    <div onDoubleClick={this.editStatusToggle}>
-                        <span>{this.props.status || '----'}</span>
-                    </div>
-                }
-                {this.state.editMode &&
-                    <div
-                        onKeyUp={this.setStatusText}
-                        onBlur={this.editStatusToggle}
-                    >
-                        <input autoFocus={true} defaultValue={this.state.statusValue} />
-                    </div>
-                }
-            </div>
-        )
+    const sendStatus = () => {
+        setEditMode(false)
+        props.updateStatus(status);
     }
+
+    return (
+        <div>
+            {!editMode &&
+                <div >
+                    <span onDoubleClick={activeEditMode}>{props.status || '----'}</span>
+                </div>
+            }
+            {editMode &&
+                <div>
+                    <input autoFocus={true} defaultValue={status} onKeyUp={onStatusChange} onBlur={sendStatus} />
+                </div>
+            }
+        </div>
+    )
 }
 
+let mapStateToProps = (state) => ({ status: getUserStatus(state) })
 
-let mapStateToProps = (state) => ({ status: state.profilePage.userInfo.userStatus })
+export default connect(mapStateToProps, { updateStatus })(StatusWithHooks);
 
-export default connect(mapStateToProps, { updateStatus })(Status);

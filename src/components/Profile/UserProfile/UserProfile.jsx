@@ -4,6 +4,7 @@ import noPhoto from '../../../assets/no_photo.jpg'
 import Status from '../Status/Status';
 
 
+
 const UserProfile = (props) => {
 
   if (Object.keys(props.userInfo).length === 0) {
