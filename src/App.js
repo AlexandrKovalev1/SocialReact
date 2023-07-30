@@ -8,7 +8,6 @@ import DialogsContainer from './components/Dialogs/DialogsContainer';
 import UsersContainer from './components/Users/UsersContainer';
 import NavContainer from './components/Navigation/NavContainer';
 import AsideFriendsContainer from './components/AsideFriends/AsideFriendsContainer';
-import ProfileContainer from './components/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import LoginPage from './components/Login/LoginPage/LoginPage';
 import WithRouter from './components/common/hoc/WithRouter';
@@ -17,6 +16,7 @@ import { connect } from 'react-redux';
 import React from 'react';
 import { initializedApp } from './redux/appReducer';
 import Preloader from './components/common/Preloader/Preloader';
+import ProfileContainerWithHooks from './components/Profile/Profile';
 
 
 class App extends React.Component {
@@ -40,7 +40,7 @@ class App extends React.Component {
             <Routes>
 
               <Route path='/profile/:userId?'
-                element={<ProfileContainer />}>
+                element={<ProfileContainerWithHooks />}>
               </Route>
 
               <Route path='/find_companion'
