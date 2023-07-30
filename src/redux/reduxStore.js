@@ -6,7 +6,7 @@ import navigationReducer from './navigationReducer';
 import friendsReducer from './friendsReducer';
 import authReducer from './authReducer';
 import thunkMiddleware from 'redux-thunk';
-import appReducer from './app-reducer';
+import appReducer from './appReducer';
 
 
 

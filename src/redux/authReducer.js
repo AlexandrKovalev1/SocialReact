@@ -53,7 +53,7 @@ export const login = (authData, setStatus) => {
             if (data.resultCode === 0) {
                 dispatch(getAuthUserData())
             } else {
-                let message = data.messages > 0 ? data.messages[0] : 'Some error';
+                let message = data.messages.length > 0 ? data.messages[0] : 'Some error';
                 setStatus({ error: message });
             }
         })

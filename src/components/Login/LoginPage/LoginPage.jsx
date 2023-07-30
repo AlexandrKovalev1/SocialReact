@@ -3,6 +3,7 @@ import LoginForm from "./LoginForm/LoginForm";
 import classes from './LoginPage.module.css'
 import { login } from "../../../redux/authReducer";
 import { Navigate } from "react-router-dom";
+import { getIsAuth } from "../../../redux/auth-selectors";
 
 
 
@@ -20,6 +21,6 @@ const LoginPage = (props) => {
     )
 }
 
-let mapStateToProps = (state) => ({ isAuth: state.auth.isAuth })
+let mapStateToProps = (state) => ({ isAuth: getIsAuth(state) })
 
 export default connect(mapStateToProps, { login })(LoginPage);

@@ -1,6 +1,7 @@
 import { connect } from "react-redux";
 import Header from "./Header";
 import { logout } from "../../redux/authReducer";
+import { getIsAuth, getIsFetching } from "../../redux/auth-selectors";
 
 
 const HeaderContainer = (props) => {
@@ -16,8 +17,8 @@ const HeaderContainer = (props) => {
 
 
 let mapStateToProps = (state) => ({
-    isAuth: state.auth.isAuth,
-    isFetching: state.auth.isFetching,
+    isAuth: getIsAuth(state),
+    isFetching: getIsFetching(state),
 });
 
 export default connect(mapStateToProps, { logout })(HeaderContainer)

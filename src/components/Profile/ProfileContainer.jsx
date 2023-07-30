@@ -5,18 +5,19 @@ import { getProfile } from "../../redux/profileReducer";
 import { compose } from "redux";
 import WithRouter from "../common/hoc/WithRouter";
 import { Navigate } from "react-router-dom";
+import { getIsAuth, getUserAutorizedId, getUserInfo } from "../../redux/auth-selectors";
 
 
 class ProfileContainer extends React.Component {
 
 
     componentDidMount() {
-        let userId = this.props.router.params.userId ? this.props.router.params.userId : this.props.myId
+        let userId = this.props.router.params.userId ? this.props.router.params.userId : this.props.userAutorizedId
         this.props.getProfile(userId);
     }
 
     componentDidUpdate(prevProps) {
-        let userId = this.props.router.params.userId ? this.props.router.params.userId : this.props.myId
+        let userId = this.props.router.params.userId ? this.props.router.params.userId : this.props.userAutorizedId
         if ((prevProps.router.params.userId !== this.props.router.params.userId)) {
             this.props.getProfile(userId);
         }
@@ -40,9 +41,9 @@ class ProfileContainer extends React.Component {
 
 
 let mapStateToProps = (state) => ({
-    userInfo: state.profilePage.userInfo.userProfile,
-    myId: state.auth.id,
-    isAuth: state.auth.isAuth,
+    userInfo: getUserInfo(state),
+    userAutorizedId: getUserAutorizedId(state),
+    isAuth: getIsAuth(state),
 });
 
 export default compose(

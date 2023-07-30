@@ -15,7 +15,7 @@ import WithRouter from './components/common/hoc/WithRouter';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import React from 'react';
-import { initializedApp } from './redux/app-reducer';
+import { initializedApp } from './redux/appReducer';
 import Preloader from './components/common/Preloader/Preloader';
 
 
@@ -26,7 +26,6 @@ class App extends React.Component {
 
   render() {
     let loginPage = this.props.router.location.pathname === '/login';
-
     if (!this.props.isInitialized) {
       return <Preloader />
     }

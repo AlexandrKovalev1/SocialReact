@@ -2,23 +2,28 @@ import { connect } from "react-redux";
 import Users from "./Users";
 import {
     showNextPage, showPrevPage,
-    getUsers, hideUser,
-    followSucces,unfollowSucces,
+    loadUsers, hideUser,
+    followSucces, unfollowSucces,
     toggleFolowingIsProgress
 } from "../../redux/usersReducer";
 import React from "react";
+import {
+    getUsers, getCurrentPage, getFollowingIsProgress,
+    getFriends, getIsFetching, getPageSize,
+    getTotalCounUsers
+} from "../../redux/users-selectors";
 
 
 class UsersContainer extends React.Component {
 
     componentDidMount() {
-        this.props.getUsers();
+        this.props.loadUsers();
     }
 
 
     onShowNextUsers = () => {
         this.props.showNextPage();
-        this.props.getUsers(this.props.currentPage);
+        this.props.loadUsers(this.props.currentPage);
     }
 
     render() {
@@ -44,13 +49,13 @@ class UsersContainer extends React.Component {
 let mapStateToProps = (state) => {
 
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalCount: state.usersPage.totalCount,
-        currentPage: state.usersPage.currentPage,
-        friends: state.friends.friends,
-        isFetching: state.usersPage.isFetching,
-        followingIsProgress: state.usersPage.followingIsProgress
+        users: getUsers(state),
+        pageSize: getPageSize(state),
+        totalCount: getTotalCounUsers(state),
+        currentPage: getCurrentPage(state),
+        friends: getFriends(state),
+        isFetching: getIsFetching(state),
+        followingIsProgress: getFollowingIsProgress(state)
     }
 
 };
@@ -58,8 +63,8 @@ let mapStateToProps = (state) => {
 
 export default connect(mapStateToProps,
     {
-        showNextPage, showPrevPage, hideUser, 
-        toggleFolowingIsProgress, getUsers,
-        followSucces,unfollowSucces
+        showNextPage, showPrevPage, hideUser,
+        toggleFolowingIsProgress, loadUsers,
+        followSucces, unfollowSucces
     }
 )(UsersContainer);;
