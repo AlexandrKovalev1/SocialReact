@@ -42,35 +42,35 @@ const Users = (props) => {
                 <div className={classes.section__friends}>
                     <div className={classes.section__heading}>
                         <h3>Друзья</h3>
-                        <a href=''>Показать всех</a>
+                        <span>Показать всех</span>
                     </div>
                     <ul className={classes.friends__list}>
                         {friendItems}
                     </ul>
                     <div className={classes.button__prev}>
-                        <a onClick={props.showPrev}>
+                        <div onClick={props.showPrev}>
                             <div className={classes.arrow__left}>
                             </div>
-                        </a>
+                        </div>
                     </div>
                     <div className={classes.button__next}>
-                        <a onClick={() => { alert('friends') }}>
+                        <div onClick={() => { alert('friends') }}>
                             <div className={classes.arrow__right}></div>
-                        </a>
+                        </div>
                     </div>
                 </div>
                 <div className={classes.section__users}>
                     <div className={classes.section__heading}>
                         <h3>Все пользователи</h3>
-                        <a >Показать всех</a >
+                        <span>Показать всех</span>
                     </div>
                     <ul className={classes.users__list}>
                         {props.isFetching ? <Preloader /> : userItems}
                     </ul>
                     <div className={classes.button__next}>
-                        <a onClick={() => { props.onShowNextUsers() }}>
+                        <div onClick={() => { props.onShowNextUsers() }}>
                             <div className={classes.arrow__right}></div>
-                        </a>
+                        </div>
                     </div>
                 </div>
                 <p>

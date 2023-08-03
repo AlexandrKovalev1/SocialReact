@@ -2,22 +2,22 @@ import { connect } from "react-redux"
 import { compose } from "redux"
 import WithRouter from "../common/hoc/WithRouter"
 import UserProfile from "./UserProfile/UserProfile"
-import NewPostContainer from "./NewPost/NewPostContainer"
 import PostsContainer from "./Posts/PostsContainer"
 import classes from './Profile.module.css'
-import { useEffect } from "react"
+import {  useLayoutEffect } from "react"
 import { getUserInfo } from "../../redux/profile-selectors"
 import { getIsAuth, getUserAutorizedId } from "../../redux/auth-selectors"
 import { getProfile } from "../../redux/profileReducer"
 import { Navigate } from "react-router-dom"
+import NewPost from "./NewPost/NewPostHooks"
 
 
-const ProfileContainerWithHooks = (props) => {
+const Profile = (props) => {
     let userId = props.router.params.userId ? props.router.params.userId : props.userAutorizedId;
 
-    useEffect(() => {
-        console.log('use')
-        props.getProfile(userId);
+    useLayoutEffect(() => {
+        if (userId !== null) props.getProfile(userId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [userId]);
 
 
@@ -28,7 +28,7 @@ const ProfileContainerWithHooks = (props) => {
     return (
         <div className={classes.main}>
             <UserProfile userInfo={props.userInfo} />
-            <NewPostContainer />
+            <NewPost />
             <PostsContainer />
         </div>
     )
@@ -43,4 +43,4 @@ let mapStateToProps = (state) => ({
 export default compose(
     connect(mapStateToProps, { getProfile }),
     WithRouter,
-)(ProfileContainerWithHooks)
+)(Profile)

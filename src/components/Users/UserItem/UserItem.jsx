@@ -10,11 +10,11 @@ const UserItem = (props) => {
                 <NavLink to={`/profile/${props.id}`}>
                     <img className={classes.avatar} src={props.avatar !== null ? props.avatar : userPhoto} alt="" />
                 </NavLink>
-                <a className={classes.link__hide} onClick={() => props.hideUser(props.index)}>
+                <div className={classes.link__hide} onClick={() => props.hideUser(props.index)}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="white" className={classes.swg__hidden}>
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
-                </a>
+                </div>
                 <div>
                     <div className={classes.about__user}>
                         <span className={classes.name}>

@@ -1,12 +1,13 @@
+import { NavLink } from 'react-router-dom';
 import classes from './FriendItemUsers.module.css'
 
 const FriendItemUsers = (props) => {
     return (
         <li className={classes.wrapper}>
             <div className={classes.avatar}>
-                <a >
+                <NavLink to={'#'}>
                     <img className={classes.avatar__img} src={props.avatar} alt="avatar" />
-                </a>
+                </NavLink>
             </div>
             <span className={classes.name}>
                 {props.name}
