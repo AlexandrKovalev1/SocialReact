@@ -145,28 +145,34 @@ export const loadUsers = (page, size) => {
     }
 };
 
-export const unfollowSucces = (userId) => {
-    return (dispatch) => {
+const followUnfollowSuccesFlow = (userId, apiMethod, actionCreator) => {
+    return async (dispatch) => {
         dispatch(toggleFolowingIsProgress(true, userId));
-        usersAPI.deleteFollower(userId).then(data => {
-            if (data.resultCode === 0) {
-                dispatch(unfollow(userId));
-                dispatch(toggleFolowingIsProgress(false, userId));
-            }
-        });
+        const data = await apiMethod(userId);
+        if (data.resultCode === 0) {
+            dispatch(actionCreator(userId));
+            dispatch(toggleFolowingIsProgress(false, userId));
+        }
     }
+}
+
+export const unfollowSucces = (userId) => {
+    return (
+        followUnfollowSuccesFlow(userId,
+            usersAPI.deleteFollower.bind(usersAPI),
+            unfollow
+        )
+    )
 };
 
 export const followSucces = (userId) => {
-    return (dispatch) => {
-        dispatch(toggleFolowingIsProgress(true, userId));
-        usersAPI.postFollower(userId).then(data => {
-            if (data.resultCode === 0) {
-                dispatch(addUserToFriends(userId));
-                dispatch(toggleFolowingIsProgress(false, userId));
-            }
-        });
-    }
+
+    return (
+        followUnfollowSuccesFlow(userId,
+            usersAPI.postFollower.bind(usersAPI),
+            addUserToFriends
+        )
+    )
 };
 
 export default usersReducer;

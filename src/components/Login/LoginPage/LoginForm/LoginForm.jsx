@@ -21,14 +21,12 @@ const LoginForm = (props) => {
         setSubmitting(false);
     }
 
-
     return (
         <Formik
             initialValues={{ email: '', password: '', rememberMe: false, captcha: false }}
             validationSchema={validationShema}
             onSubmit={submit}>
             {({
-                touched,
                 status,
                 errors,
                 values,
