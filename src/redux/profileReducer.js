@@ -2,6 +2,7 @@ import { profileAPI } from "../api/api";
 const ADD_POST = 'ADD-POST';
 const SET_USER_INFO = 'SET-USER-INFO';
 const SET_USER_STATUS = 'SET-USER-STATUS';
+const SET_AVATAR = 'profile-reducer/SET-AVATAR'
 
 let initialState = {
   userInfo: {
@@ -62,6 +63,22 @@ const profileReducer = (state = initialState, action) => {
     }
   }
 
+  if (action.type === SET_AVATAR) {
+
+    return {
+      ...state,
+      userInfo: {
+        ...state.userInfo,
+        userProfile: {
+          ...state.userInfo.userProfile,
+          photos: action.photos,
+        }
+
+      },
+
+    }
+  }
+
   return state;
 
 }
@@ -72,23 +89,50 @@ export const addNewPost = (textPost) => ({ type: ADD_POST, textPost });
 
 export const setUserStatus = (status) => ({ type: SET_USER_STATUS, status })
 
+export const setAvatar = (photos) => ({ type: SET_AVATAR, photos })
+
 export const getProfile = (userId) => {
 
-  return (dispatch) => {
+  return async (dispatch) => {
 
-    profileAPI.getProfile(userId).then(data => dispatch(setUserInfo(data)));
-    profileAPI.getStatus(userId).then(status => dispatch(setUserStatus(status)));
+    let data = await profileAPI.getProfile(userId);
+    let status = await profileAPI.getStatus(userId);
+
+    dispatch(setUserInfo(data));
+    dispatch(setUserStatus(status));
   }
 }
 
 export const updateStatus = (status) => {
-  return (dispatch) => {
-    profileAPI.updateStatus(status)
-      .then(response => {
-        if (response.resultCode === 0) {
-          dispatch(setUserStatus(status))
-        }
-      })
+  return async (dispatch) => {
+    let response = await profileAPI.updateStatus(status);
+
+    if (response.resultCode === 0) {
+      dispatch(setUserStatus(status))
+    }
+
+  }
+}
+
+export const updateAvatar = (file) => {
+
+  return async (dispatch) => {
+    let response = await profileAPI.updateAvatarImg(file);
+
+    if (response.resultCode === 0) {
+
+      dispatch(setAvatar(response.data.photos))
+    }
+  }
+}
+
+export const editProfile = (profileData) => {
+  return async (dispatch, getState) => {
+    let id = getState().auth.id;
+    let response = await profileAPI.updateProfile(profileData);
+    if (response.resultCode === 0) {
+      dispatch(getProfile(id));
+    }
   }
 }
 

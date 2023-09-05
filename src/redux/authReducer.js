@@ -1,7 +1,9 @@
 import { authAPI } from "../api/api";
 
+
 const SET_DATA = 'SET-DATA';
 const SET_IS_FETCHING_AUTH = 'SET-IS-FETCHING-AUTH';
+const SET_CAPTCHA = 'authReducser/SET-CAPTCHA';
 
 
 let initialState = {
@@ -10,6 +12,10 @@ let initialState = {
     login: null,
     isAuth: false,
     isFetching: false,
+    captcha: {
+        isCaptcha: false,
+        captchaUrl: null,
+    }
 };
 
 
@@ -22,6 +28,17 @@ const authReducer = (state = initialState, action) => {
         return { ...state, isFetching: action.isFetching }
     };
 
+    if (action.type === SET_CAPTCHA) {
+        return {
+            ...state,
+            captcha: {
+                ...state.captcha,
+                isCaptcha: action.isCaptcha,
+                captchaUrl: action.url
+            }
+        }
+    }
+
     return state;
 }
 
@@ -30,6 +47,8 @@ const authReducer = (state = initialState, action) => {
 export const setAuthData = (email, id, login, isAuth = true) => ({ type: SET_DATA, payload: { email, id, login, isAuth } });
 
 export const setIsFethingAuth = (isFetching) => ({ type: SET_IS_FETCHING_AUTH, isFetching });
+
+export const setCaptcha = (isCaptcha, url = null) => ({ type: SET_CAPTCHA, isCaptcha, url });
 
 export const getAuthUserData = () => {
     return async (dispatch) => {
@@ -50,30 +69,41 @@ export const login = (authData, setStatus) => {
         const data = await authAPI.login(authData);
         dispatch(setIsFethingAuth(false));
 
-        if (data.resultCode === 0) {
-            dispatch(getAuthUserData())
-        } else {
+        const errorMessage = (data) => {
             let message = data.messages.length > 0 ? data.messages[0] : 'Some error';
             setStatus({ error: message });
         }
-    }
-}
 
-
-export const logout = () => {
-    return async (dispatch) => {
-
-        dispatch(setIsFethingAuth(true));
-        const data = await authAPI.logout();
-        dispatch(setIsFethingAuth(false));
 
         if (data.resultCode === 0) {
-            dispatch(setAuthData(null, null, null, false))
+            dispatch(getAuthUserData())
+            dispatch(setCaptcha(false));
+        } else {
+
+            if (data.resultCode === 10) {
+                const dataCap = await authAPI.getCaptcha();
+                dispatch(setCaptcha(true, dataCap.url));
+            }
+
+            errorMessage(data)
         }
     }
-
 }
 
+    export const logout = () => {
+        return async (dispatch) => {
+
+            dispatch(setIsFethingAuth(true));
+            const data = await authAPI.logout();
+            dispatch(setIsFethingAuth(false));
+
+            if (data.resultCode === 0) {
+                dispatch(setAuthData(null, null, null, false))
+            }
+        }
+
+    }
 
 
-export default authReducer;
+
+    export default authReducer;

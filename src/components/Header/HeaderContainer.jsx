@@ -19,6 +19,7 @@ const HeaderContainer = (props) => {
 let mapStateToProps = (state) => ({
     isAuth: getIsAuth(state),
     isFetching: getIsFetching(state),
+    // avatarSmall:
 });
 
 export default connect(mapStateToProps, { logout })(HeaderContainer)

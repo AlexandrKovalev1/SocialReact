@@ -15,6 +15,7 @@ const validationShema = Yup.object().shape({
 
 const LoginForm = (props) => {
 
+    console.log(props)
     const submit = (values, { setSubmitting, setStatus, resetForm }) => {
         props.login(values, setStatus);
         resetForm();
@@ -23,7 +24,7 @@ const LoginForm = (props) => {
 
     return (
         <Formik
-            initialValues={{ email: '', password: '', rememberMe: false, captcha: false }}
+            initialValues={{ email: '', password: '', rememberMe: false, captcha: '' }}
             validationSchema={validationShema}
             onSubmit={submit}>
             {({
@@ -59,6 +60,23 @@ const LoginForm = (props) => {
                             value={values.password}
                         />
                     </div>
+                    {props.captcha.isCaptcha &&
+                        <div>
+                            <Field
+                                className={classes.input}
+                                component={InputCustom}
+                                type={'text'}
+                                name={'captcha'}
+                                placeholder={'enter captcha simbols'}
+                                onBlur={handleBlur}
+                                onChange={handleChange}
+                                value={values.captcha}
+                            />
+                            <div>
+                                <img src={props.captcha.captchaUrl} alt="" />
+                            </div>
+                        </div>
+                    }
                     <div className={classes.input__wrapper}>
                         <Field
                             component={InputCheckbox}
@@ -69,9 +87,11 @@ const LoginForm = (props) => {
                         />
                     </div>
                     {status && <div style={{ color: 'red', fontWeight: 'bold', }}>{status.error}</div>}
+
                     <button type="submit" disabled={isSubmitting} className={classes.button__login}>
                         Login
                     </button>
+
 
                 </Form>
             )}

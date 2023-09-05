@@ -4,16 +4,16 @@ import classes from './News.module.css'
 
 const News = () => {
 
-    const useCounter = (initialValue = 0) => {
-        let [count, setCount] = useState(initialValue);
+    const usePaginator = (initialValue = 1) => {
+        let [currentPage, setCount] = useState(initialValue);
 
         const increment = useCallback(() => { setCount(currentCount => currentCount + 1) }, [])
         const decrement = useCallback(() => { setCount(currentCount => currentCount - 1) }, [])
 
-        return { count, increment, decrement }
+        return { currentPage, increment, decrement,setCount}
     }
 
-    let { count, increment, decrement } = useCounter(7);
+    let { count, increment, decrement } = usePaginator(7);
 
 
     

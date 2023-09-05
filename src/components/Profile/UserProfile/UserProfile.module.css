@@ -1,23 +1,20 @@
 .profile {
-    position: relative;
-}
-
-.header__background {
-    width: 100%;
-    height: 50%;
-    border-radius: 15px 15px 0 0;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    background-color: #ffffff;
+    border-radius: 15px;
     background-image: url('./headerBackground.jpg');
-    background-position: center;
-    background-size: cover;
+    background-size: 100% 50%;
+    background-position: top center;
     background-repeat: no-repeat;
-    opacity: 0.9;
 
 }
+
 
 .user__avatar {
-    position: absolute;
-    top: 25%;
-    left: 3%;
+    display: flex;
+    place-items: center;
+    justify-content: center;
 
 }
 
@@ -30,17 +27,22 @@
 }
 
 .user__info {
-    width: 100%;
-    height: 50%;
-    border-radius: 0 0 15px 15px;
-    background-color: #ffffff;
+    display: grid;
+    grid-template-rows: 10fr 1fr;
+    max-height: 360px;
+
+}
+
+.info {
+    display: grid;
+    grid-template-columns: 1fr 2fr ;
+    align-items: center;
 }
 
 .user__about {
-    position: absolute;
-    left: 33%;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    padding-top: 60px;
+   justify-content: center;
 }
 
 .user__name {
@@ -50,16 +52,26 @@
 
 }
 
+
 .status {
     padding-top: 10px;
     letter-spacing: 1.5px;
 }
 
-.social {
-    position: absolute;
-    right: 15px;
-    bottom: 5px;
+.user__information {
+    display: grid;
+    justify-content: center;
+} 
+
+.reductProfile__form {
+    width: 100%;
+    height: 100%;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    background-color: #ffffff21;
 }
+
+
 @media (max-width: 850px) {
     .user__avatar img {
         width: 150px;

@@ -4,20 +4,26 @@ import WithRouter from "../common/hoc/WithRouter"
 import UserProfile from "./UserProfile/UserProfile"
 import PostsContainer from "./Posts/PostsContainer"
 import classes from './Profile.module.css'
-import {  useLayoutEffect } from "react"
-import { getUserInfo } from "../../redux/profile-selectors"
+import { useLayoutEffect } from "react"
+import { getUserInfoSelector } from "../../redux/profile-selectors"
 import { getIsAuth, getUserAutorizedId } from "../../redux/auth-selectors"
-import { getProfile } from "../../redux/profileReducer"
+import { getProfile, updateAvatar } from "../../redux/profileReducer"
 import { Navigate } from "react-router-dom"
 import NewPost from "./NewPost/NewPostHooks"
 
 
 const Profile = (props) => {
-    let userId = props.router.params.userId ? props.router.params.userId : props.userAutorizedId;
+    let userId = props.router.params.userId;
+    if (!userId) {
+        userId = props.userAutorizedId;
+    } else {
+        <Navigate to={'/login'} />
+    }
 
     useLayoutEffect(() => {
+
         if (userId !== null) props.getProfile(userId);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     }, [userId]);
 
 
@@ -27,7 +33,11 @@ const Profile = (props) => {
 
     return (
         <div className={classes.main}>
-            <UserProfile userInfo={props.userInfo} />
+            <UserProfile
+                userInfo={props.userInfo}
+                isOwner={Boolean(!props.router.params.userId)}
+                updateAvatar={props.updateAvatar}
+            />
             <NewPost />
             <PostsContainer />
         </div>
@@ -35,12 +45,12 @@ const Profile = (props) => {
 }
 
 let mapStateToProps = (state) => ({
-    userInfo: getUserInfo(state),
+    userInfo: getUserInfoSelector(state),
     userAutorizedId: getUserAutorizedId(state),
     isAuth: getIsAuth(state),
 });
 
 export default compose(
-    connect(mapStateToProps, { getProfile }),
+    connect(mapStateToProps, { getProfile, updateAvatar }),
     WithRouter,
 )(Profile)

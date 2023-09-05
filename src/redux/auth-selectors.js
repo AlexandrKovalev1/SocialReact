@@ -9,3 +9,7 @@ export const getIsAuth = (state) => {
 export const getIsFetching = (state) => {
     return state.auth.isFetching;
 }
+
+export const getCaptcha = (state) => {
+return state.auth.captcha;
+}
