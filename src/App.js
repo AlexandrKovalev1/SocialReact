@@ -14,7 +14,7 @@ import WithRouter from './components/common/hoc/WithRouter';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import React from 'react';
-import { initializedApp } from './redux/appReducer';
+import { initializedApp } from './redux/appReducer.ts';
 import Preloader from './components/common/Preloader/Preloader';
 import ProfileContainerWithHooks from './components/Profile/Profile';
 

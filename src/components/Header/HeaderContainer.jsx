@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import Header from "./Header";
-import { logout } from "../../redux/authReducer";
+import { logout } from "../../redux/authReducer.ts";
 import { getIsAuth, getIsFetching } from "../../redux/auth-selectors";
 
 

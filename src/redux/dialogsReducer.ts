@@ -1,29 +1,52 @@
 const SEND_MESSAGE = 'SEND-MESSAGE';
+let status = 'Online'||'Offline'
+
+
+type InitialStateMessageType = {
+  id: number
+  nameSender: string
+  textMessage: string
+  avatar: string | null
+};
+
+type InitialStateCompanionType = {
+  id: number
+  name: string
+  avatar: string | null
+  status: typeof status,
+}
+
+
+type InitialStateType = {
+  messages: Array<InitialStateMessageType>
+  companions: Array<InitialStateCompanionType>
+}
+
 
 let initialState = {
   messages: [
     {
       id: 1,
-      nameSender:'Sveta',
+      nameSender: 'Sveta',
       textMessage: '☂ Saint-Petersburg',
       avatar: 'https://avatars.mds.yandex.net/i?id=4f872bd783d46ceda036375d6365b8b4b3c8cbee-8425275-images-thumbs&n=13'
     },
     {
       id: 2,
-      nameSender:'Boss',
+      nameSender: 'Boss',
       textMessage: 'Норм Lorem ipsum dolor sit, amet consectetur adipisicing elit. Porro minima cum aperiam tenetur dolorum ut enim obcaecati autem? Quod labore sapiente possimus provident ducimus quas odit, molestias ut earum nihil!',
       avatar: 'https://stihi.ru/pics/2015/02/10/1261.jpg'
     },
     {
       id: 3,
-      nameSender:'Sveta',
+      nameSender: 'Sveta',
       textMessage: '🌝 ✌ 🎲',
       avatar: 'https://avatars.mds.yandex.net/i?id=4f872bd783d46ceda036375d6365b8b4b3c8cbee-8425275-images-thumbs&n=13'
     },
     {
       id: 4,
-      nameSender:'Boss',
-      textMessage: ['lorem lorem lorem'],
+      nameSender: 'Boss',
+      textMessage: 'lorem lorem lorem',
       avatar: 'https://stihi.ru/pics/2015/02/10/1261.jpg'
     }],
 
@@ -67,12 +90,18 @@ let initialState = {
   ],
 };
 
-const dialogsReducer = (state = initialState, action) => {
+type ActionType = {
+  type: any
+  text:string
+}
+
+
+const dialogsReducer = (state = initialState, action:ActionType):InitialStateType=> {
 
   if (action.type === SEND_MESSAGE) {
     let newMessage = {
-      id: state.messages.length+1,
-      nameSender:'Boss',
+      id: state.messages.length + 1,
+      nameSender: 'Boss',
       textMessage: action.text,
       avatar: 'https://stihi.ru/pics/2015/02/10/1261.jpg',
     }
@@ -86,7 +115,7 @@ const dialogsReducer = (state = initialState, action) => {
   return state;
 }
 
-export const sendMessageCreator = (text) => ({ type: SEND_MESSAGE , text});
+export const sendMessageCreator = (text) => ({ type: SEND_MESSAGE, text });
 
 export default dialogsReducer;
 

@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import LoginForm from "./LoginForm/LoginForm";
 import classes from './LoginPage.module.css'
-import { login } from "../../../redux/authReducer";
+import { login } from "../../../redux/authReducer.ts";
 import { Navigate } from "react-router-dom";
 import { getCaptcha, getIsAuth } from "../../../redux/auth-selectors";
 

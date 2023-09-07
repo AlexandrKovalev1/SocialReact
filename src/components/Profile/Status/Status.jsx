@@ -1,7 +1,7 @@
 import { connect } from "react-redux"
 import { getUserStatus } from "../../../redux/profile-selectors"
 import { useEffect, useState } from "react"
-import { updateStatus } from "../../../redux/profileReducer"
+import { updateStatus } from "../../../redux/profileReducer.ts"
 
 
 const StatusWithHooks = (props) => {

@@ -2,7 +2,7 @@ import { useFormik } from 'formik';
 import { useState } from 'react';
 import classes from './EditProfileForm.module.css'
 import { connect } from 'react-redux';
-import { editProfile } from '../../../../redux/profileReducer';
+import { editProfile } from '../../../../redux/profileReducer.ts';
 
 const EditProfileForm = ({ userInfo,setEditProfile,editProfile, ...props }) => {
 

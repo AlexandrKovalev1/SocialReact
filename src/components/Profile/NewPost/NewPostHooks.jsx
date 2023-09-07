@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import classes from './NewPost.module.css';
 import { connect } from 'react-redux';
-import { addNewPost } from '../../../redux/profileReducer';
+import { addNewPost } from '../../../redux/profileReducer.ts';
 
 const NewPost = (props) => {
 

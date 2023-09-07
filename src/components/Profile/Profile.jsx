@@ -7,7 +7,7 @@ import classes from './Profile.module.css'
 import { useLayoutEffect } from "react"
 import { getUserInfoSelector } from "../../redux/profile-selectors"
 import { getIsAuth, getUserAutorizedId } from "../../redux/auth-selectors"
-import { getProfile, updateAvatar } from "../../redux/profileReducer"
+import { getProfile, updateAvatar } from "../../redux/profileReducer.ts"
 import { Navigate } from "react-router-dom"
 import NewPost from "./NewPost/NewPostHooks"
 
