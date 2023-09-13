@@ -1,10 +1,19 @@
+import * as React from 'react'
 import classes from './Dialogs.module.css';
 import CompanionItem from './CompanionItem/CompanionItem';
 import MessagesItem from './MessagesItem/MessagesItem';
 import { Formik, Field } from 'formik';
+import { InitialMessageType, InitialCompanionItemType } from '../../commonTypes/commonTypes';
 
 
-const Dialogs = (props) => {
+type DialogsPropsType = {
+    companions: Array<InitialCompanionItemType>
+    messages: Array<InitialMessageType>
+
+    sendMessage: (text:string) => void
+}
+
+const Dialogs: React.FC<DialogsPropsType> = (props) => {
 
     let dialogsItem = props.companions.map(companion =>
         <CompanionItem
@@ -48,9 +57,17 @@ const Dialogs = (props) => {
 }
 
 
-const FormSendMessage = (props) => {
+type FormSendMessagePropsType = {
+    sendMessage: (text: string) => void
+}
 
-    const submit = (values, { setSubmitting }) => {
+type FormikValuesType = {
+    text:string
+}
+
+const FormSendMessage:React.FC<FormSendMessagePropsType> = (props) => {
+
+    const submit = (values:FormikValuesType, { setSubmitting }) => {
         props.sendMessage(values.text)
         values.text = '';
         setSubmitting(false);

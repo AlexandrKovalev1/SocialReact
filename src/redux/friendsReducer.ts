@@ -1,3 +1,4 @@
+import { FriendItemType } from './../commonTypes/commonTypes';
 // const ADD_FRIEND = 'ADD-FRIEND';
 
 let initialState = {
@@ -56,16 +57,18 @@ let initialState = {
             avatar: 'https://www.pngall.com/wp-content/uploads/4/Jason-Statham-PNG-Photo.png',
             status: 'Online',
         },
-    ],
+    ] as Array<FriendItemType>,
 };
 
-const friendsReducer = (state = initialState,action) => {
-//     if (action.type === ADD_FRIEND) {
-// return {
-//     ...state,
-    
-// }
-//     }
+export type InitialStateType = typeof initialState;
+
+const friendsReducer = (state = initialState, action: any):InitialStateType => {
+    //     if (action.type === ADD_FRIEND) {
+    // return {
+    //     ...state,
+
+    // }
+    //     }
 
     return state;
 };

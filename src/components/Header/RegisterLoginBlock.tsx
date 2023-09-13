@@ -1,8 +1,11 @@
+import * as React from 'react'
 import { NavLink } from "react-router-dom"
 
-const RegisterLoginBlock = (props) => {
+type RegisterLoginBlockPropsType = {}
+
+const RegisterLoginBlock: React.FC<RegisterLoginBlockPropsType> = (props) => {
     return (
-        <div style={{color:'white'}}>
+        <div style={{ color: 'white' }}>
             <span >
                 <NavLink to={'/login'}>{'Login '}</NavLink>
             </span>

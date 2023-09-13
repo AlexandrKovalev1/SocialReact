@@ -1,13 +1,19 @@
+import { ThunkAction } from "redux-thunk";
 import { authAPI } from "../api/api";
+import { FormValuesLoginPropsType, FormikSetStatusType } from "../commonTypes/commonTypes";
+import { AppStateType } from "./reduxStore";
+import { Dispatch } from "react";
 
-
+// variables and const
 const SET_DATA = 'SET-DATA';
 const SET_IS_FETCHING_AUTH = 'SET-IS-FETCHING-AUTH';
 const SET_CAPTCHA = 'authReducser/SET-CAPTCHA';
 
-type CaptchaType = {
+//types
+
+export type CaptchaType = {
     isCaptcha: boolean
-    captchaUrl: string | null
+    captchaUrl: string
 }
 
 type InitialStateType = {
@@ -19,9 +25,39 @@ type InitialStateType = {
     captcha: CaptchaType
 };
 
+type SetAuthDataActionPayloadType = {
+    email: string | null
+    id: number | null
+    login: string | null
+    isAuth: boolean
+}
+
+type SetAuthDataActionType = {
+    type: typeof SET_DATA
+    payload: SetAuthDataActionPayloadType
+}
+
+type SetIsFethingAuthActionType = {
+    type: typeof SET_IS_FETCHING_AUTH
+    isFetching: boolean
+}
+
+type SetCaptchaActionType = {
+    type: typeof SET_CAPTCHA
+    isCaptcha: boolean
+    url: string
+}
+
+type ActionsTypes = SetAuthDataActionType
+    | SetIsFethingAuthActionType
+    | SetCaptchaActionType;
+
+type GetStateType = () => AppStateType
+type DispatchType = Dispatch<ActionsTypes>
+export type AuthThuncsTypes = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
 
 
-
+//InitialState
 let initialState: InitialStateType = {
     id: null,
     email: null,
@@ -30,12 +66,12 @@ let initialState: InitialStateType = {
     isFetching: false,
     captcha: {
         isCaptcha: false,
-        captchaUrl: null,
+        captchaUrl: '',
     }
 };
 
-
-const authReducer = (state = initialState, action: any): InitialStateType => {
+//Reducer
+const authReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
     if (action.type === SET_DATA) {
         return { ...state, ...action.payload };
     };
@@ -58,29 +94,7 @@ const authReducer = (state = initialState, action: any): InitialStateType => {
     return state;
 }
 
-type SetAuthDataActionPayloadType = {
-    email: string | null
-    id: number | null
-    login: string | null
-    isAuth: boolean
-}
-
-type SetAuthDataActionType = {
-    type: typeof SET_DATA
-    payload: SetAuthDataActionPayloadType
-}
-
-type SetIsFethingAuthActionType = {
-    type: typeof SET_IS_FETCHING_AUTH
-    isFetching: boolean
-}
-
-type SetCaptchaActionType = {
-    type: typeof SET_CAPTCHA
-    isCaptcha: boolean
-    url: string | null
-}
-
+//ActionCreators
 export const setAuthData = (
     email: string | null,
     id: number | null,
@@ -92,11 +106,12 @@ export const setIsFethingAuth = (isFetching: boolean): SetIsFethingAuthActionTyp
     ({ type: SET_IS_FETCHING_AUTH, isFetching });
 
 export const setCaptcha = (isCaptcha: boolean,
-    url: string | null = null): SetCaptchaActionType =>
+    url: string = ''): SetCaptchaActionType =>
     ({ type: SET_CAPTCHA, isCaptcha, url });
 
-export const getAuthUserData = () => {
-    return async (dispatch: any) => {
+//ThunksCreators
+export const getAuthUserData = (): AuthThuncsTypes => {
+    return async (dispatch: DispatchType, getState: GetStateType) => {
         dispatch(setIsFethingAuth(true));
         const data = await authAPI.getIsAuthData();
         dispatch(setIsFethingAuth(false));
@@ -107,22 +122,23 @@ export const getAuthUserData = () => {
     }
 }
 
-export const login = (authData: any, setStatus: any) => {
-    return async (dispatch: any) => {
+export const login = (authData: FormValuesLoginPropsType,
+    setStatus: FormikSetStatusType): AuthThuncsTypes => {
+    return async (dispatch: Dispatch<AuthThuncsTypes | ActionsTypes>, getState: GetStateType) => {
 
         dispatch(setIsFethingAuth(true));
         const data = await authAPI.login(authData);
         dispatch(setIsFethingAuth(false));
 
-        const errorMessage = (data: any) => {
+        const errorMessage = (data: { messages: Array<string> }) => {
             let message = data.messages.length > 0 ? data.messages[0] : 'Some error';
             setStatus({ error: message });
         }
 
 
         if (data.resultCode === 0) {
-            dispatch(getAuthUserData())
-            dispatch(setCaptcha(false));
+            dispatch(getAuthUserData());
+            dispatch(setCaptcha(false, ''));
         } else {
 
             if (data.resultCode === 10) {
@@ -135,8 +151,8 @@ export const login = (authData: any, setStatus: any) => {
     }
 }
 
-export const logout = () => {
-    return async (dispatch) => {
+export const logout = (): AuthThuncsTypes => {
+    return async (dispatch: DispatchType) => {
 
         dispatch(setIsFethingAuth(true));
         const data = await authAPI.logout();

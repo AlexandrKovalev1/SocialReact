@@ -1,13 +1,12 @@
-import { applyMiddleware, combineReducers, legacy_createStore as createStore } from 'redux';
-import dialogsReducer from './dialogsReducer.ts';
-import profileReducer from './profileReducer.ts';
+import {applyMiddleware, combineReducers, legacy_createStore as createStore } from 'redux';
+import dialogsReducer from './dialogsReducer';
+import profileReducer from './profileReducer';
 import usersReducer from './usersReducer';
 import navigationReducer from './navigationReducer';
 import friendsReducer from './friendsReducer';
-import authReducer from './authReducer.ts';
+import authReducer from './authReducer';
 import thunkMiddleware from 'redux-thunk';
-import appReducer from './appReducer.ts';
-
+import appReducer from './appReducer';
 
 
 
@@ -21,6 +20,8 @@ let redusers = combineReducers({
     app: appReducer,
 });
 
+type RootReduserType = typeof redusers
+export type AppStateType = ReturnType<RootReduserType>
 
 let store = createStore(redusers, applyMiddleware(thunkMiddleware));
 

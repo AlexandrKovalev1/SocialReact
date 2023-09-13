@@ -1,6 +1,14 @@
+import * as React from 'react'
 import classes from './InputCheckbox.module.css'
+import { FormikFieldType } from '../../../../../commonTypes/commonTypes'
 
-const InputCheckbox = ({ field, form, ...props }) => {
+type InputCheckboxPropsType ={
+    field:FormikFieldType
+    form:any
+    inputTitle:string
+}
+
+const InputCheckbox:React.FC<InputCheckboxPropsType> = ({ field, form, ...props }) => {
     return (
         <label className={classes.wrapper}>
             <input type='checkbox' className={classes.input} />

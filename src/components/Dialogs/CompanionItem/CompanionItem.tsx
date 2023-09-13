@@ -1,7 +1,11 @@
 import { NavLink } from 'react-router-dom';
 import classes from './CompanionItem.module.css'
+import * as React from 'react';
+import { InitialCompanionItemType } from '../../../commonTypes/commonTypes';
 
-const CompanionItem = (props) => {
+
+
+const CompanionItem:React.FC<InitialCompanionItemType> = (props) => {
 
     let path = `${props.id}`;
 

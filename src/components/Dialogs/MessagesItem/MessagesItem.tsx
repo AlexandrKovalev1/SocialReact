@@ -1,15 +1,21 @@
 import classes from './MessagesItem.module.css';
 import Message from './Message/Message';
+import * as React from 'react'
+import { InitialMessageType } from '../../../commonTypes/commonTypes';
 
 
-const MessagesItem = (props) => {
+type MessagesItemPropsType = {
+    messages:Array<InitialMessageType>
+}
+
+const MessagesItem:React.FC<MessagesItemPropsType> = (props) => {
 
     let messageItem = props.messages.map(message =>
         <Message
             key={message.id}
             id={message.id}
             nameSender={message.nameSender}
-            message={message.textMessage}
+            textMessage={message.textMessage}
             avatar={message.avatar}
         />
     ).reverse()

@@ -1,8 +1,11 @@
+import * as React from 'react'
 import { Field, Form, Formik } from 'formik'
 import classes from './LoginForm.module.css'
 import * as Yup from 'yup';
 import InputCheckbox from '../Inputs/InputCheckbox/InputCheckbox';
 import InputCustom from '../Inputs/InputCustom/InputCustom';
+import { AuthThuncsTypes, CaptchaType } from '../../../../redux/authReducer';
+import { FormValuesLoginPropsType, FormikSetStatusType } from '../../../../commonTypes/commonTypes';
 
 
 const validationShema = Yup.object().shape({
@@ -12,11 +15,16 @@ const validationShema = Yup.object().shape({
 
 
 
+type LoginFormPropsType = {
+    login: (authData: FormValuesLoginPropsType, 
+        setStatus: FormikSetStatusType) => AuthThuncsTypes
+    captcha:CaptchaType
+}
 
-const LoginForm = (props) => {
 
-    console.log(props)
-    const submit = (values, { setSubmitting, setStatus, resetForm }) => {
+const LoginForm: React.FC<LoginFormPropsType> = (props) => {
+
+    const submit = (values:FormValuesLoginPropsType, { setSubmitting, setStatus, resetForm }) => {
         props.login(values, setStatus);
         resetForm();
         setSubmitting(false);

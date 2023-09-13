@@ -1,6 +1,15 @@
+import * as React from 'react'
 import classes from './InputCustom.module.css'
+import { FormikFieldType } from '../../../../../commonTypes/commonTypes'
 
-const InputCustom = ({ field, form, ...props }) => {
+
+type InputCustomPropsType = {
+    field: FormikFieldType
+    form: any
+    className:string
+}
+
+const InputCustom:React.FC<InputCustomPropsType> = ({ field, form, ...props }) => {
     return (
         <label >
             <input {...field} {...props} className={`${props.className}  +

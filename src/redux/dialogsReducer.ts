@@ -1,25 +1,12 @@
+import { InitialMessageType,InitialCompanionItemType} from './../commonTypes/commonTypes';
+
+
 const SEND_MESSAGE = 'SEND-MESSAGE';
-let status = 'Online'||'Offline'
-
-
-type InitialStateMessageType = {
-  id: number
-  nameSender: string
-  textMessage: string
-  avatar: string | null
-};
-
-type InitialStateCompanionType = {
-  id: number
-  name: string
-  avatar: string | null
-  status: typeof status,
-}
 
 
 type InitialStateType = {
-  messages: Array<InitialStateMessageType>
-  companions: Array<InitialStateCompanionType>
+  messages: Array<InitialMessageType>
+  companions: Array<InitialCompanionItemType>
 }
 
 
@@ -90,13 +77,9 @@ let initialState = {
   ],
 };
 
-type ActionType = {
-  type: any
-  text:string
-}
 
 
-const dialogsReducer = (state = initialState, action:ActionType):InitialStateType=> {
+const dialogsReducer = (state = initialState, action: any): InitialStateType => {
 
   if (action.type === SEND_MESSAGE) {
     let newMessage = {
@@ -115,7 +98,13 @@ const dialogsReducer = (state = initialState, action:ActionType):InitialStateTyp
   return state;
 }
 
-export const sendMessageCreator = (text) => ({ type: SEND_MESSAGE, text });
+export type SendMessageCreatorActionType = {
+  type: typeof SEND_MESSAGE
+  text: string
+}
+
+export const sendMessageCreator =
+  (text: string): SendMessageCreatorActionType => ({ type: SEND_MESSAGE, text });
 
 export default dialogsReducer;
 

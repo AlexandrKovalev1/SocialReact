@@ -1,9 +1,17 @@
+import * as React from 'react'
 import { NavLink } from 'react-router-dom';
 import classes from './Header.module.css';
 import Preloader from '../common/Preloader/Preloader';
 import RegisterLoginBlock from './RegisterLoginBlock';
 
-const Header = (props) => {
+type HeaderPropsType = {
+    isAuth: boolean
+    isFetching: boolean
+
+    logout: () => void
+}
+
+const Header: React.FC<HeaderPropsType> = (props) => {
     return (
         <header className={classes.header}>
             <div className={classes.container}>

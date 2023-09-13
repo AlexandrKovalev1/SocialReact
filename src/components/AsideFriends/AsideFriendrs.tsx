@@ -1,7 +1,16 @@
-import classes from './AsideFriends.module.css';
-import FriendItemAside from './FriendItemAside/FriendItemAside';
+import * as React from 'react'
+import classes from './AsideFriends.module.css'
+import FriendItemAside from './FriendItemAside/FriendItemAside'
+import {FriendItemType} from '../../commonTypes/commonTypes'
 
-let AsideFriends = (props) => {
+
+
+type OwnPropsType = {
+    friends: Array<FriendItemType>
+
+}
+
+let AsideFriends: React.FC<OwnPropsType> = (props) => {
     let friendItem = props.friends.map(friend => <FriendItemAside
         id={friend.id}
         key={friend.id}
