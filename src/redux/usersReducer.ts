@@ -1,4 +1,4 @@
-import { usersAPI } from "../api/api";
+import { ResponseCodesEnum, usersAPI } from "../api/api";
 import { AppStateType } from "./reduxStore";
 import { ThunkAction } from 'redux-thunk';
 
@@ -14,7 +14,7 @@ const SET_IS_FETCHING = 'SET-IS-FETCHING';
 const TOGGLE_FOLOWING_IS_PROGRESS = 'TOGGLE-FOLOWING-IS-PROGRESS';
 
 //types
-type UserItemType = {
+export type UserItemType = {
     name: string
     id: number
     photos: {
@@ -27,15 +27,15 @@ type UserItemType = {
 
 type InitialStateType = typeof initialState;
 
-type ShowNextPageActionType = {
+export type ShowNextPageActionType = {
     type: typeof SHOW_NEXT_PAGE
 }
 
-type ShowPrevPageActionType = {
+export type ShowPrevPageActionType = {
     type: typeof SHOW_PREV_PAGE
 }
 
-type HideUserActionType = {
+export type HideUserActionType = {
     type: typeof HIDE_USER
     index: number
 }
@@ -65,7 +65,7 @@ type SetIsFetchingActionType = {
     isFetching: boolean
 }
 
-type ToggleFolowingIsProgressActionType = {
+export type ToggleFolowingIsProgressActionType = {
     type: typeof TOGGLE_FOLOWING_IS_PROGRESS
     isFetching: boolean
     userId: number
@@ -81,7 +81,10 @@ type ActionsTypes = ShowNextPageActionType
     | SetIsFetchingActionType
     | ToggleFolowingIsProgressActionType
 
-type UsersThunksTypes = ThunkAction<Promise<any>, AppStateType, unknown, ActionsTypes>
+export type UsersThunksTypes = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
+export type UsersThunksFollowUnfollowTypes = ThunkAction<void, AppStateType, unknown, ActionsTypes>
+
+
 
 //InitialState
 const initialState = {
@@ -226,14 +229,14 @@ const followUnfollowSuccesFlow = (userId: number, apiMethod: any, actionCreator:
     return async (dispatch: any) => {
         dispatch(toggleFolowingIsProgress(true, userId));
         const data = await apiMethod(userId);
-        if (data.resultCode === 0) {
+        if (data.resultCode === ResponseCodesEnum.Succes) {
             dispatch(actionCreator(userId));
             dispatch(toggleFolowingIsProgress(false, userId));
         }
     }
 }
 
-export const unfollowSucces = (userId: number):UsersThunksTypes => {
+export const unfollowSucces = (userId: number):UsersThunksFollowUnfollowTypes => {
     return (
         followUnfollowSuccesFlow(userId,
             usersAPI.deleteFollower.bind(usersAPI),
@@ -242,7 +245,7 @@ export const unfollowSucces = (userId: number):UsersThunksTypes => {
     )
 };
 
-export const followSucces = (userId: number):UsersThunksTypes => {
+export const followSucces = (userId: number):UsersThunksFollowUnfollowTypes => {
 
     return (
         followUnfollowSuccesFlow(userId,

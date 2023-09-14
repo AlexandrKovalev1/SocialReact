@@ -1,5 +1,5 @@
 import { ThunkAction } from 'redux-thunk';
-import { profileAPI } from "../api/api";
+import { ResponseCodesEnum, profileAPI } from "../api/api";
 import { AppStateType } from './reduxStore';
 
 // variables and const
@@ -202,8 +202,7 @@ export const updateAvatar = (file: globalThis.File): ProfileThunkType => {
   return async (dispatch) => {
     let response = await profileAPI.updateAvatarImg(file);
 
-    if (response.resultCode === 0) {
-
+    if (response.resultCode === ResponseCodesEnum.Succes) {
       dispatch(setAvatar(response.data.photos))
     }
   }

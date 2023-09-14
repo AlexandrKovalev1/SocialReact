@@ -1,5 +1,5 @@
 import { ThunkAction } from "redux-thunk";
-import { authAPI } from "../api/api";
+import { ResponseCodeCaptcha, ResponseCodesEnum, authAPI } from "../api/api";
 import { FormValuesLoginPropsType, FormikSetStatusType } from "../commonTypes/commonTypes";
 import { AppStateType } from "./reduxStore";
 import { Dispatch } from "react";
@@ -115,7 +115,7 @@ export const getAuthUserData = (): AuthThuncsTypes => {
         dispatch(setIsFethingAuth(true));
         const data = await authAPI.getIsAuthData();
         dispatch(setIsFethingAuth(false));
-        if (data.resultCode === 0) {
+        if (data.resultCode === ResponseCodesEnum.Succes) {
             let { email = null, id = null, login = null } = { ...data.data };
             dispatch(setAuthData(email, id, login));
         }
@@ -136,12 +136,12 @@ export const login = (authData: FormValuesLoginPropsType,
         }
 
 
-        if (data.resultCode === 0) {
+        if (data.resultCode === ResponseCodesEnum.Succes) {
             dispatch(getAuthUserData());
             dispatch(setCaptcha(false, ''));
         } else {
 
-            if (data.resultCode === 10) {
+            if (data.resultCode === ResponseCodeCaptcha.addedCaptcha) {
                 const dataCap = await authAPI.getCaptcha();
                 dispatch(setCaptcha(true, dataCap.url));
             }
@@ -158,7 +158,7 @@ export const logout = (): AuthThuncsTypes => {
         const data = await authAPI.logout();
         dispatch(setIsFethingAuth(false));
 
-        if (data.resultCode === 0) {
+        if (data.resultCode === ResponseCodesEnum.Succes) {
             dispatch(setAuthData(null, null, null, false))
         }
     }

@@ -1,11 +1,28 @@
-import React from 'react';
+import * as React from 'react'
 import FriendItemUsers from './FriendItemUsers/FriendItemUsers';
 import UserItem from './UserItem/UserItem';
 import classes from './Users.module.css';
 import Preloader from '../common/Preloader/Preloader';
+import {
+    HideUserActionType, ShowNextPageActionType, ShowPrevPageActionType,
+    ToggleFolowingIsProgressActionType, UserItemType
+} from '../../redux/usersReducer';
 
+type UsersPropsType = {
+    friends: Array<FriendItemUsers>
+    users: Array<UserItemType>
+    hideUser: (index: number) => HideUserActionType
+    followSucces: (userId: number) => void
+    unfollowSucces: (userId: number) => void
+    followingIsProgress: Array<number>
+    showNext: () => ShowNextPageActionType
+    showPrev: () => ShowPrevPageActionType
+    isFetching: boolean
+    onShowNextUsers: () => void
 
-const Users = (props) => {
+}
+
+const Users: React.FC<UsersPropsType> = (props) => {
     let friendItems = props.friends.map(friend =>
         <FriendItemUsers
             id={friend.id}
@@ -30,7 +47,6 @@ const Users = (props) => {
             status={user.status}
             country={'user.location.country'}
             sity={'user.location.sity'}
-            toggleFolowingIsProgress={props.toggleFolowingIsProgress}
             followingIsProgress={props.followingIsProgress}
         />
     )

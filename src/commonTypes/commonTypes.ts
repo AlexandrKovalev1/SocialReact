@@ -32,6 +32,8 @@ export type FormikFieldType = {
 export type FormValuesLoginPropsType = {
     email: string
     password: string
+    rememberMe:boolean
+    captcha: boolean
 }
 
 export type FormikSetStatusType = (status?: any) => void

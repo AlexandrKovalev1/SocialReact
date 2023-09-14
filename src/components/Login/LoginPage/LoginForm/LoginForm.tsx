@@ -16,23 +16,25 @@ const validationShema = Yup.object().shape({
 
 
 type LoginFormPropsType = {
-    login: (authData: FormValuesLoginPropsType, 
+    login: (authData: FormValuesLoginPropsType,
         setStatus: FormikSetStatusType) => AuthThuncsTypes
-    captcha:CaptchaType
+    captcha: CaptchaType
 }
 
 
 const LoginForm: React.FC<LoginFormPropsType> = (props) => {
 
-    const submit = (values:FormValuesLoginPropsType, { setSubmitting, setStatus, resetForm }) => {
+    const submit = (values: FormValuesLoginPropsType, { setSubmitting, setStatus, resetForm }) => {
         props.login(values, setStatus);
         resetForm();
         setSubmitting(false);
     }
 
+    const InitialValues: FormValuesLoginPropsType = { email: '', password: '', rememberMe: false, captcha: false }
+
     return (
         <Formik
-            initialValues={{ email: '', password: '', rememberMe: false, captcha: '' }}
+            initialValues={InitialValues}
             validationSchema={validationShema}
             onSubmit={submit}>
             {({

@@ -1,8 +1,26 @@
+import * as React from 'react'
 import classes from './UserItem.module.css'
 import userPhoto from '../../../assets/no_photo.jpg'
 import { NavLink } from 'react-router-dom'
+import { HideUserActionType } from '../../../redux/usersReducer'
 
-const UserItem = (props) => {
+type UserItemPropsType = {
+    id: number
+    avatar: null | string
+    hideUser: (index: number) => HideUserActionType
+    index: number
+    fullname: string
+    country: string
+    sity: string
+    status: string | null
+    folowed: boolean
+    followingIsProgress:Array<number>
+    followSucces: (userId: number) => void
+    unfollowSucces: (userId: number) => void
+}
+
+
+const UserItem: React.FC<UserItemPropsType> = (props) => {
     return (
         <li className={classes.wrapper}>
 

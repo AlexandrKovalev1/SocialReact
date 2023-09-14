@@ -18,7 +18,7 @@ type UserProfilePropsType = {
 
 
 const UserProfile: React.FC<UserProfilePropsType> = (props) => {
-  let [isChoose, setChoose] = useState(false);
+  let [isChoose, setChoose] = useState(1);
   const [editProfile, setEditProfile]= useState(false);
 
 
