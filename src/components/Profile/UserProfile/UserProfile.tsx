@@ -1,28 +1,39 @@
-import Preloader from '../../common/Preloader/Preloader';
-import classes from './UserProfile.module.css';
+import * as React from 'react'
+import Preloader from '../../common/Preloader/Preloader'
+import classes from './UserProfile.module.css'
 import noPhoto from '../../../assets/no_photo.jpg'
-import Status from '../Status/Status';
-import { useState } from 'react';
-import EditProfileForm from './EditProfileForm/EditProfileForm';
+import Status from '../Status/Status'
+import { useState } from 'react'
+import EditProfileForm from './EditProfileForm/EditProfileForm'
+import { ProfileDataType, ProfileThunkType } from '../../../redux/profileReducer'
+
+
+type UserProfilePropsType = {
+  updateAvatar: (file: globalThis.File) => ProfileThunkType
+  userInfo: ProfileDataType | null
+  isOwner: boolean
+}
 
 
 
 
-const UserProfile = (props) => {
+const UserProfile: React.FC<UserProfilePropsType> = (props) => {
   let [isChoose, setChoose] = useState(false);
-  const [editProfile, setEditProfile] = useState(false);
+  const [editProfile, setEditProfile]= useState(false);
 
 
-  let onMainAvatarSelected = (e) => {
-    if (e.target.files.length) {
-      props.updateAvatar(e.target.files[0]);
+  let onMainAvatarSelected = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const files = (e.target as HTMLInputElement).files;
+
+    if (files) {
+      props.updateAvatar(files[0]);
     }
   }
 
 
 
 
-  if (Object.keys(props.userInfo).length === 0) {
+  if (!props.userInfo) {
     return <Preloader />
   }
 
@@ -35,17 +46,20 @@ const UserProfile = (props) => {
         </b>
       </span>:
       <span>
-        {props.userInfo.contacts.contact}
+        {props.userInfo && props.userInfo.contacts[contact]}
       </span>
     </div>
 
   )
 
+
+
+
   return (
 
     <section className={classes.profile}>
       <div className={classes.user__avatar} >
-        <img src={props.userInfo.photos.large || noPhoto} alt="avatar" />
+        <img src={(props.userInfo.photos && props.userInfo.photos.large) || noPhoto} alt="avatar" />
         {props.isOwner && isChoose && <input type='file' name='false' onChange={onMainAvatarSelected} />}
       </div>
 

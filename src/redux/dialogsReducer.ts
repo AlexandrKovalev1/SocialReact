@@ -1,15 +1,20 @@
-import { InitialMessageType,InitialCompanionItemType} from './../commonTypes/commonTypes';
+import { InitialMessageType, InitialCompanionItemType } from './../commonTypes/commonTypes';
 
-
+// variables and const
 const SEND_MESSAGE = 'SEND-MESSAGE';
 
-
+//types
 type InitialStateType = {
   messages: Array<InitialMessageType>
   companions: Array<InitialCompanionItemType>
 }
+export type SendMessageCreatorActionType = {
+  type: typeof SEND_MESSAGE
+  text: string
+}
+type ActionsTypes = SendMessageCreatorActionType;
 
-
+//InitialState
 let initialState = {
   messages: [
     {
@@ -77,9 +82,8 @@ let initialState = {
   ],
 };
 
-
-
-const dialogsReducer = (state = initialState, action: any): InitialStateType => {
+//Reducer
+const dialogsReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
 
   if (action.type === SEND_MESSAGE) {
     let newMessage = {
@@ -98,13 +102,9 @@ const dialogsReducer = (state = initialState, action: any): InitialStateType => 
   return state;
 }
 
-export type SendMessageCreatorActionType = {
-  type: typeof SEND_MESSAGE
-  text: string
-}
-
-export const sendMessageCreator =
-  (text: string): SendMessageCreatorActionType => ({ type: SEND_MESSAGE, text });
+//ActionCreators
+export const sendMessageCreator = (text: string): SendMessageCreatorActionType =>
+  ({ type: SEND_MESSAGE, text });
 
 export default dialogsReducer;
 

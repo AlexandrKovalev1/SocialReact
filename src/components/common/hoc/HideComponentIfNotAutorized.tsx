@@ -6,19 +6,23 @@ type InjectedProps = {
 
 }
 
-const HideComponentIfNotAutorized = <BaseProps extends InjectedProps>(Component: React.ComponentType<BaseProps>) => {
+type MapStatePropsType = {
+    isAuth:boolean
+}
+
+const HideComponentIfNotAutorized = <BaseProps extends InjectedProps & MapStatePropsType>(Component: React.ComponentType<BaseProps>) => {
 
     let mapStateToProps = (state: AppStateType) => ({ isAuth: state.auth.isAuth });
 
-    const HideComponent = (props:any) => {
+    const HideComponent = (props:MapStatePropsType & InjectedProps) => {
 
 
         return <>
-            {Boolean(props.isAuth) && <Component {...props} />}
+            {Boolean(props.isAuth) && <Component {...props as BaseProps} />}
         </>
     }
 
-    return connect(mapStateToProps, {})(HideComponent);
+    return connect<MapStatePropsType,{},InjectedProps,AppStateType>(mapStateToProps)(HideComponent);
 }
 
 export default HideComponentIfNotAutorized;

@@ -6,26 +6,30 @@ import {
 import * as React from 'react'
 
 
-type InjectedProps = {
 
+
+export type WithRouterPropsType = {
+    location: ReturnType<typeof useLocation>;
+    params: Record<string, string>;
+    navigate: ReturnType<typeof useNavigate>;
 }
 
-const WithRouter = <BaseProps extends InjectedProps>(Component) => {
-    function ComponentWithRouterProp(props: any) {
+const WithRouter = <BaseProps extends WithRouterPropsType>(Component: React.ComponentType<BaseProps>) => {
+    function ComponentWithRouterProp(props: Omit<BaseProps, keyof WithRouterPropsType>) {
         let location = useLocation();
         let navigate = useNavigate();
         let params = useParams();
         return (
 
             <Component
-                {...props}
+                {...props as BaseProps}
                 router={{ location, navigate, params }}
             />
-        
+
         );
     }
 
-return ComponentWithRouterProp;
+    return ComponentWithRouterProp;
 }
 
 export default WithRouter;

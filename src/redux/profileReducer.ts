@@ -1,9 +1,14 @@
+import { ThunkAction } from 'redux-thunk';
 import { profileAPI } from "../api/api";
+import { AppStateType } from './reduxStore';
+
+// variables and const
 const ADD_POST = 'ADD-POST';
 const SET_USER_INFO = 'SET-USER-INFO';
 const SET_USER_STATUS = 'SET-USER-STATUS';
 const SET_AVATAR = 'profile-reducer/SET-AVATAR'
 
+//types
 type PostType = {
   id: number,
   text: string,
@@ -13,7 +18,7 @@ type PostType = {
 }
 
 type UserInfoType = {
-  userProfile: {},
+  userProfile: ProfileDataType | null,
   userStatus: string,
 }
 
@@ -22,10 +27,64 @@ type InitialStateType = {
   posts: Array<PostType>,
 }
 
+type SetUserInfoActionType = {
+  type: typeof SET_USER_INFO,
+  userProfile: any
+}
 
+type AddNewPostActionType = {
+  type: typeof ADD_POST,
+  textPost: string,
+}
+
+type SetUserStatusActionType = {
+  type: typeof SET_USER_STATUS,
+  status: string,
+}
+
+type SetAvatarActionType = {
+  type: typeof SET_AVATAR
+  photos: PhotosProfileDataType
+}
+
+type ContactsProfileDataType = {
+  github: string
+  vk: string
+  facebook: string
+  instagram: string
+  twitter: string
+  website: string
+  youtube: string
+  mainLink: string
+}
+
+type PhotosProfileDataType = {
+  small: string
+  large: string
+}
+
+export type ProfileDataType = {
+  aboutMe: string
+  userId?: number
+  lookingForAJob: boolean
+  lookingForAJobDescription: string
+  fullName: string
+  contacts: ContactsProfileDataType
+  photos?: PhotosProfileDataType
+}
+
+type ActionsTypes = SetUserInfoActionType
+  | AddNewPostActionType
+  | SetUserStatusActionType
+  | SetAvatarActionType
+
+export type ProfileThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
+
+
+//InitialState
 let initialState: InitialStateType = {
   userInfo: {
-    userProfile: {},
+    userProfile: null,
     userStatus: '',
   },
   posts: [
@@ -46,8 +105,8 @@ let initialState: InitialStateType = {
   ],
 };
 
-
-const profileReducer = (state = initialState, action: any): InitialStateType => {
+//Reducer
+const profileReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
 
   if (action.type === ADD_POST) {
 
@@ -85,55 +144,39 @@ const profileReducer = (state = initialState, action: any): InitialStateType => 
 
   if (action.type === SET_AVATAR) {
 
-    return {
-      ...state,
-      userInfo: {
-        ...state.userInfo,
-        userProfile: {
-          ...state.userInfo.userProfile,
-          photos: action.photos,
-        }
+    if (state.userInfo.userProfile) {
+      return {
+        ...state,
+        userInfo: {
+          ...state.userInfo,
+          userProfile: {
+            ...state.userInfo.userProfile,
+            photos: action.photos,
+          }
+        },
 
-      },
-
+      }
     }
+
   }
 
   return state;
 
 }
 
-
-type SetUserInfoActionType = {
-  type: typeof SET_USER_INFO,
-  userProfile: any
-}
-
-type AddNewPostActionType = {
-  type: typeof ADD_POST,
-  textPost: string,
-}
-
-type SetUserStatusActionType = {
-  type: typeof SET_USER_STATUS,
-  status: string,
-}
-
-type SetAvatarActionType = {
-  type: typeof SET_AVATAR
-  photos: string
-}
+//ActionCreators
 export const setUserInfo = (userProfile: {}): SetUserInfoActionType => ({ type: SET_USER_INFO, userProfile });
 
 export const addNewPost = (textPost: string): AddNewPostActionType => ({ type: ADD_POST, textPost });
 
 export const setUserStatus = (status: string): SetUserStatusActionType => ({ type: SET_USER_STATUS, status })
 
-export const setAvatar = (photos: string): SetAvatarActionType => ({ type: SET_AVATAR, photos })
+export const setAvatar = (photos: PhotosProfileDataType): SetAvatarActionType => ({ type: SET_AVATAR, photos })
 
-export const getProfile = (userId: any) => {
+//ThunksCreators
+export const getProfile = (userId: number | null): ProfileThunkType => {
 
-  return async (dispatch: any) => {
+  return async (dispatch) => {
 
     let data = await profileAPI.getProfile(userId);
     let status = await profileAPI.getStatus(userId);
@@ -143,8 +186,8 @@ export const getProfile = (userId: any) => {
   }
 }
 
-export const updateStatus = (status: string) => {
-  return async (dispatch: any) => {
+export const updateStatus = (status: string): ProfileThunkType => {
+  return async (dispatch) => {
     let response = await profileAPI.updateStatus(status);
 
     if (response.resultCode === 0) {
@@ -154,9 +197,9 @@ export const updateStatus = (status: string) => {
   }
 }
 
-export const updateAvatar = (file: any) => {
+export const updateAvatar = (file: globalThis.File): ProfileThunkType => {
 
-  return async (dispatch: any) => {
+  return async (dispatch) => {
     let response = await profileAPI.updateAvatarImg(file);
 
     if (response.resultCode === 0) {
@@ -166,8 +209,8 @@ export const updateAvatar = (file: any) => {
   }
 }
 
-export const editProfile = (profileData: any) => {
-  return async (dispatch: any, getState: any) => {
+export const editProfile = (profileData: ProfileDataType): ProfileThunkType => {
+  return async (dispatch, getState) => {
     let id = getState().auth.id;
     let response = await profileAPI.updateProfile(profileData);
     if (response.resultCode === 0) {

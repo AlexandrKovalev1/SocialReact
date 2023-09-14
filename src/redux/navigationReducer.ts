@@ -1,6 +1,12 @@
+//types
+type InitialStateType = typeof initialState;
+export type NavItemPropsType = {
+    id: number
+    title: string
+    path: string
+}
 
-
-
+//InitialState
 let initialState = {
     navItems: [
         {
@@ -38,15 +44,10 @@ let initialState = {
             title: 'Настройки',
             path: '/settings',
         },
-    ] as Array<{
-        id: number
-        title: string
-        path: string
-    }>
+    ] as Array<NavItemPropsType>
 };
 
-type InitialStateType = typeof initialState;
-
-const navigationReducer = (state = initialState,action:any):InitialStateType => state;
+//Reducer
+const navigationReducer = (state = initialState, action: any): InitialStateType => state;
 
 export default navigationReducer;

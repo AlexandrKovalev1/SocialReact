@@ -2,7 +2,7 @@ import * as React from 'react'
 import preloader from '../../../assets/preloader.gif'
 
 type PreloaderPropsType = {
-    height: string
+    height?: string
 }
 
 

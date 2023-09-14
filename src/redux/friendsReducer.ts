@@ -1,6 +1,9 @@
 import { FriendItemType } from './../commonTypes/commonTypes';
-// const ADD_FRIEND = 'ADD-FRIEND';
 
+//types
+export type InitialStateType = typeof initialState;
+
+//InitialState
 let initialState = {
     friends: [
         {
@@ -60,15 +63,10 @@ let initialState = {
     ] as Array<FriendItemType>,
 };
 
-export type InitialStateType = typeof initialState;
 
-const friendsReducer = (state = initialState, action: any):InitialStateType => {
-    //     if (action.type === ADD_FRIEND) {
-    // return {
-    //     ...state,
+//Reducer
+const friendsReducer = (state = initialState, action: any): InitialStateType => {
 
-    // }
-    //     }
 
     return state;
 };

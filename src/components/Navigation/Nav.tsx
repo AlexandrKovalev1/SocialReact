@@ -1,6 +1,13 @@
+import * as React from 'react'
 import classes from './Nav.module.css';
 import NavItem from './NavItem/NavItem'
-const Nav = (props) => {
+import { NavItemPropsType } from '../../redux/navigationReducer';
+
+type NavPropsType = {
+    navigation:Array<NavItemPropsType>
+}
+
+const Nav:React.FC<NavPropsType> = (props) => {
     let navItem = props.navigation.map(navEl =>
         <NavItem
             key={navEl.id}

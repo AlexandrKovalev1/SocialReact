@@ -6,20 +6,23 @@ import { AppStateType } from "../../../redux/reduxStore";
 type InjectedProps = {
 
 }
+type MapStatePropsType ={
+    isAuth:boolean
+}
 
-const RedirectToLogin = <BaseProps extends InjectedProps>(Component: React.ComponentType<BaseProps>) => {
+const RedirectToLogin = <BaseProps extends InjectedProps & MapStatePropsType>(Component: React.ComponentType<BaseProps>) => {
     let mapStateToProps = (state: AppStateType) => ({ isAuth: state.auth.isAuth });
 
 
-    const RedirectComponent = (props: any) => {
+    const RedirectComponent = (props:MapStatePropsType) => {
 
-        if (Boolean(props.isAuth)) return <Component {...props} />;
+        if (Boolean(props.isAuth)) return <Component {...props as BaseProps} />;
 
         return <Navigate to={`/login`} />
 
     }
 
-    return connect(mapStateToProps)(RedirectComponent)
+    return connect<MapStatePropsType,{},InjectedProps,AppStateType>(mapStateToProps)(RedirectComponent)
 }
 
 export default RedirectToLogin;

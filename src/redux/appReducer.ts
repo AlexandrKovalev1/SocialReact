@@ -18,7 +18,7 @@ type SetInitializedActionType = {
 
 type ActionTypes = SetInitializedActionType;
 
-type ThuncType = ThunkAction<void, AppStateType, unknown, ActionTypes>
+type AppThuncType = ThunkAction<void, AppStateType, unknown, ActionTypes>
 
 //initialState
 let initialState: InitialStateType = {
@@ -45,7 +45,7 @@ const setInitialzed = (): SetInitializedActionType => ({ type: INITIALIZED_SUCCE
 
 //ThunksCreators
 
-export const initializedApp = (): ThuncType => (dispatch) => {
+export const initializedApp = (): AppThuncType => (dispatch) => {
     let promise = dispatch(getAuthUserData());
 
     Promise.all([promise]).then(() => dispatch(setInitialzed()))
